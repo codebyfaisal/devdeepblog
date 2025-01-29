@@ -1,8 +1,11 @@
+import { Header } from "./components";
 function App() {
   return (
-    <h1 className="bg-gray-100 h-screen size-full text-2xl text-emerald-500">
-      Hello World
-    </h1>
+    <div className="bg-gray-100 h-screen size-full relative overflow-x-hidden">
+      <div className="max-w-5xl mx-auto">
+        <Header />
+      </div>
+    </div>
   );
 }
 export default App;
