@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 
-const PostCard = ({ post, styles, index }) => {
+const BlogCard = ({ blog, styles, index }) => {
   return (
     <article className={`${styles} h-[50vh] relative mb-10`}>
       <div
@@ -22,26 +22,26 @@ const PostCard = ({ post, styles, index }) => {
         <div className={"w-1/6 h-full"}></div>
 
         <Link
-          to={`/blog/1 ${post.slug}`}
+          to={`/blog/1 ${blog.slug}`}
           className={
             "w-2/6 h-full aspect-square py-4 flex items-center justify-center"
           }
         >
           <img
-            src={post.image}
-            alt={post.title}
+            src={blog.image}
+            alt={blog.title}
             className="object-cover w-full aspect-square rounded-md"
           />
         </Link>
 
         <div className={"w-3/6 px-8"}>
-          <h1 className="text-xl font-semibold">{post.title}</h1>
-          <p className="text-sm opacity-85">{post.author}</p>
-          <p className="text-sm opacity-65 mt-1">{post.date}</p>
-          <p className="mt-2 font-light">{post.description}</p>
+          <h1 className="text-xl font-semibold">{blog.title}</h1>
+          <p className="text-sm opacity-85">{blog.author}</p>
+          <p className="text-sm opacity-65 mt-1">{blog.date}</p>
+          <p className="mt-2 font-light">{blog.description}</p>
 
           <Link
-            to={`/blogs/${post.slug}`}
+            to={`/blogs/${blog.slug}`}
             className="group mt-4 inline-block relative overflow-hidden py-1 px-3 group ring hover:ring-black"
           >
             <span className="flex items-center gap-1 text-white z-10 group-hover:text-black">
@@ -57,8 +57,8 @@ const PostCard = ({ post, styles, index }) => {
 };
 
 // PropTypes for type safety
-PostCard.propTypes = {
-  post: PropTypes.shape({
+BlogCard.propTypes = {
+  blog: PropTypes.shape({
     slug: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -70,4 +70,4 @@ PostCard.propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-export default PostCard;
+export default BlogCard;

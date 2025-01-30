@@ -41,7 +41,7 @@ const Navbar = () => {
 
         {/* mobile sidebar */}
         <nav
-          className={`md:hidden absolute top-[10%] transition-all duration-300 ease-in-out rounded-lg ring ring-gray-200 ${
+          className={`md:hidden absolute top-[110%] transition-all duration-200 ease-in-out rounded-lg ring ring-gray-200 bg-white ${
             !menuOpen ? "-right-[100%]" : "-right-[0%]"
           }`}
         >

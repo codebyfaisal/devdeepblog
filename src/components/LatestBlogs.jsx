@@ -1,6 +1,6 @@
 import React from "react";
-import { PostCard } from ".";
-import { dummyPost } from "../assets";
+import { BlogCard } from ".";
+import { dummyBlog } from "../assets";
 
 const LatestBlogs = () => {
   return (
@@ -8,7 +8,7 @@ const LatestBlogs = () => {
       <h1 className="text-5xl font-bold mb-8">Latest Blogs</h1>
       <div className="grid grid-cols-12 gap-4">
         {[1, 2, 3, 4, 5].map((i) => (
-          <PostCard post={dummyPost} styles="col-span-12" index={i} key={i} />
+          <BlogCard blog={dummyBlog} styles="col-span-12" index={i} key={i} />
         ))}
       </div>
     </section>

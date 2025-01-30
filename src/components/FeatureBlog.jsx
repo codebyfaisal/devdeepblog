@@ -1,12 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { dummyPost } from "../assets";
+import { dummyBlog } from "../assets";
 import { Link } from "react-router-dom";
 
 const FeatureBlog = () => {
-  const { slug, title, description, date, author, image } = dummyPost;
+  const { slug, title, description, date, author, image } = dummyBlog;
   return (
-    <article className="feature-post w-full">
+    <article className="feature-Blog w-full">
       {/* Dynamic meta tags for SEO */}
       <Helmet>
         <title>{title}</title>
@@ -17,7 +17,7 @@ const FeatureBlog = () => {
         <meta property="og:type" content="article" />
       </Helmet>
 
-      {/* Feature Post Container */}
+      {/* Feature Blog Container */}
       <div className="relative overflow-hidden rounded-md max-h-[70vh] shadow-md group">
         <img
           src={image}
@@ -26,14 +26,14 @@ const FeatureBlog = () => {
         />
 
         <div className="sm:absolute sm:inset-0 flex flex-col justify-end p-3 sm:p-6 sm:bg-gradient-to-t from-black via-transparent to-transparent sm:text-white">
-          {/* Post Title */}
-          <Link to={`/post/${slug}`}>
+          {/* Blog Title */}
+          <Link to={`/blog/${slug}`}>
             <h1 className="text-3xl sm:text-5xl font-extrabold mb-2">
               {title}
             </h1>
           </Link>
 
-          {/* Post Meta */}
+          {/* Blog Meta */}
           <div className="text-sm mb-4">
             <time dateTime="2025-01-30" className="mr-2">
               {date}
@@ -47,7 +47,7 @@ const FeatureBlog = () => {
             </span>
           </div>
 
-          {/* Post Description */}
+          {/* Blog Description */}
           <p className="text-md sm:text-lg">{description}</p>
         </div>
       </div>
