@@ -24,8 +24,8 @@ const Navbar = () => {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 mb-14 bg-white">
-      <div className="font-exo2 flex justify-between items-center py-2">
+    <header className="sticky top-0 mb-14 bg-white z-[400]">
+      <div className="flex justify-between items-center py-2">
         <Link to={"/"}>
           <Logo />
         </Link>
@@ -34,7 +34,7 @@ const Navbar = () => {
         <nav className="hidden md:block">
           <ul className="flex gap-4 text-lg items-center">
             {linkLi()}
-            {linkLi("about")}
+            {linkLi("author")}
             {linkLi("contact")}
           </ul>
         </nav>
@@ -47,7 +47,7 @@ const Navbar = () => {
         >
           <ul className="flex flex-col justify-evenly py-8 gap-8 text-lg items-end pr-6 min-w-36">
             {linkLi()}
-            {linkLi("about")}
+            {linkLi("author")}
             {linkLi("contact")}
           </ul>
         </nav>
