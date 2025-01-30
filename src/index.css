@@ -19,6 +19,23 @@
   --color-light-black: #000101;
 }
 
-@custom-variant light-red (&:where([data-theme=light-red], [data-theme=light-red] *));
+@custom-variant light-orange (&:where([data-theme=light-orange], [data-theme=light-orange] *));
 @custom-variant dark-blue (&:where([data-theme=dark-blue], [data-theme=dark-blue] *));
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* body {
+  background-color: white;
+  color: var(--color-light-blue);
+}
+body[data-theme="light-orange"] {
+  background-color: white;
+  color: var(--color-light-orange);
+}
+body[data-theme="dark-blue"] {
+  background-color: var(--color-light-black);
+  color: var(--color-light-blue);
+}
+body[data-theme="dark-white"] {
+  background-color: var(--color-light-black);
+  color: white;
+} */

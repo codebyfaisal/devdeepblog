@@ -1,4 +1,14 @@
 import Header from "./Header";
 import Logo from "./Logo";
+import FeatureBlog from "./FeatureBlog";
+import ThemeToggler from "./ThemeToggler";
 
-export { Header, Logo };
+import Footer from "./Footer";
+
+export {
+  Header,
+  Logo,
+  FeatureBlog,
+  ThemeToggler,
+  Footer,
+};

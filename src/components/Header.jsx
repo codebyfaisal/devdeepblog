@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { Logo } from ".";
 import { bmcLogo, bmcIcon } from "../assets";
-import { GitHubLogoIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon, PauseIcon, Cross1Icon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
 
 const linkLi = (link = "") => (
   <li className="group">
     <Link to={`/${link}`}>
-      <span className="relative inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:transition-all before:duration-200 group-hover:before:bg-light-blue
-      dark-blue:">
-        <span className="relative group-hover:text-white transition-all duration-200 capitalize">
+      <span className="relative inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:transition-all before:duration-200 group-hover:before:bg-black">
+        <span className="relative transition-all duration-200 capitalize group-hover:text-white">
           {link === "" ? "home" : link}
         </span>
       </span>
@@ -25,10 +24,10 @@ const Navbar = () => {
   }, [menuOpen]);
 
   return (
-    <header>
-      <div className="font-exo2 flex justify-between items-baseline px-4">
+    <header className="sticky top-0 mb-14 bg-white">
+      <div className="font-exo2 flex justify-between items-center py-2">
         <Link to={"/"}>
-          <Logo styles="text-black" />
+          <Logo />
         </Link>
 
         {/* desktop navbar */}
@@ -42,7 +41,7 @@ const Navbar = () => {
 
         {/* mobile sidebar */}
         <nav
-          className={`md:hidden absolute top-[8%] transition-all duration-300 ease-in-out rounded-lg ring ring-gray-200 ${
+          className={`md:hidden absolute top-[10%] transition-all duration-300 ease-in-out rounded-lg ring ring-gray-200 ${
             !menuOpen ? "-right-[100%]" : "-right-[0%]"
           }`}
         >
@@ -80,11 +79,15 @@ const Navbar = () => {
 
           <button
             type="button"
-            className="md:hidden cursor-pointer"
+            className="md:hidden cursor-pointer rotate-90 flex flex-col items-center"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
           >
-            <HamburgerMenuIcon width={20} height={25} />
+            {menuOpen ? (
+              <Cross1Icon width={25} height={25} className="scale-80 " />
+            ) : (
+              <PauseIcon width={25} height={25} />
+            )}
           </button>
         </div>
       </div>

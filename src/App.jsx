@@ -1,9 +1,14 @@
-import { Header } from "./components";
+import { FeatureBlog, Footer, Header, ThemeToggler } from "./components";
 function App() {
   return (
-    <div className="bg-gray-100 h-screen size-full relative overflow-x-hidden">
-      <div className="max-w-5xl mx-auto">
+    <div className="h-screen size-full relative overflow-x-hidden">
+      <ThemeToggler />
+      <div className="max-w-5xl mx-auto px-4 lg:px-0">
         <Header />
+        <main>
+          <FeatureBlog />
+          <Footer />
+        </main>
       </div>
     </div>
   );
