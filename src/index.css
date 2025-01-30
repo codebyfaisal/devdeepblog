@@ -9,6 +9,16 @@
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 .font-exo2 {
-  font-family: "Exo 2", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Exo 2", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
+@theme {
+  --color-light-blue: #9dbddb;
+  --color-light-orange: #f8b004;
+  --color-light-black: #000101;
+}
+
+@custom-variant light-red (&:where([data-theme=light-red], [data-theme=light-red] *));
+@custom-variant dark-blue (&:where([data-theme=dark-blue], [data-theme=dark-blue] *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

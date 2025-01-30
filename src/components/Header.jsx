@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 const linkLi = (link = "") => (
   <li className="group">
     <Link to={`/${link}`}>
-      <span className="relative inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 group-hover:before:bg-cyan-600 before:transition-all before:duration-200">
+      <span className="relative inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:transition-all before:duration-200 group-hover:before:bg-light-blue
+      dark-blue:">
         <span className="relative group-hover:text-white transition-all duration-200 capitalize">
           {link === "" ? "home" : link}
         </span>
