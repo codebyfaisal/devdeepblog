@@ -19,10 +19,6 @@ const linkLi = (link = "") => (
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    console.log(menuOpen);
-  }, [menuOpen]);
-
   return (
     <header className="sticky top-0 mb-14 border-b bg-white/90 border-gray-100 z-[400]">
       <div className="flex justify-between items-center py-2">
