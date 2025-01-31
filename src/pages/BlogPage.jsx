@@ -55,10 +55,7 @@ const BlogPage = () => {
           </h1>
           <div className="prose prose-lg text-gray-800">
             <p>
-              Winter can often feel like a time of stagnation, but it doesn't
-              have to be. With the right mindset and creative approaches, you
-              can turn the cold,{" "}
-              <code>gloomy days into an opportunity for artistic</code> growth.
+              {"Winter can often feel like a time of stagnation, but it doesn't have to be. With the right mindset and creative approaches, you can turn the cold"}
             </p>
             <p>Here are a few tips to embrace winter creativity:</p>
             <ul className="list-disc list-inside">
@@ -70,8 +67,7 @@ const BlogPage = () => {
               </li>
             </ul>
             <p>
-              Don't let the winter blues hold you back—embrace the season and
-              let your creativity thrive!
+              {"Don't let the winter blues hold you back—embrace the season and let your creativity thrive!"}
             </p>
           </div>
         </article>
@@ -87,7 +83,7 @@ const BlogPage = () => {
                   to="/blogs/winter-photography"
                   className="text-black/70 hover:underline hover:to-black/90"
                 >
-                  Capturing Winter's Beauty: A Photography Guide
+                  {"Capturing Winter's Beauty: A Photography Guide"}
                 </Link>
               </li>
               <li>
