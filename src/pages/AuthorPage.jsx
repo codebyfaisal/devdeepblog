@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  LinkedInLogoIcon,
-  InstagramLogoIcon,
-  GitHubLogoIcon,
-} from "@radix-ui/react-icons";
 
 const AuthorPage = () => {
   return (
@@ -33,34 +28,6 @@ const AuthorPage = () => {
             className="aspect-square object-cover"
           />
         </div>
-      </div>
-
-      <div className="flex gap-2 items-center my-10 bg-gray-100 p-8">
-        <p className="text-lg font-bold">Social Media: </p>
-        <a
-          href="http://www.linkedin.com/in/codebyfaisal"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-black/90 text-white p-2 rounded-xl aspect-square transition duration-200 hover:bg-gray-100 hover:text-black"
-        >
-          <LinkedInLogoIcon width={20} height={20} className="hover:scale-130"/>
-        </a>
-        <a
-          href="http://www.github.com/codebyfaisal"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-black/90 text-white p-2 rounded-xl aspect-square transition duration-200 hover:bg-gray-100 hover:text-black"
-        >
-          <GitHubLogoIcon width={20} height={20} className="hover:scale-130"/>
-        </a>
-        <a
-          href="http://www.instagram.com/codebyfaisal"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-black/90 text-white p-2 rounded-xl aspect-square transition duration-200 hover:bg-gray-100 hover:text-black"
-        >
-          <InstagramLogoIcon width={20} height={20} className="hover:scale-130"/>
-        </a>
       </div>
     </section>
   );

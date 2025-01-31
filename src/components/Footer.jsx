@@ -16,10 +16,9 @@ const Footer = () => {
         <h2 className="text-xl font-semibold text-center">
           Stay updated with our latest content
         </h2>
-
         <form
           action="POST"
-          className={`flex items-center ring ring-gray-200 group transition duration-150 ${
+          className={`flex items-center ring ring-gray-200 group transition duration-150 min-w-60 w-96 max-w-96 ${
             isFocus ? "ring-gray-400" : ""
           }`}
         >
@@ -28,7 +27,7 @@ const Footer = () => {
             name="email"
             id="email"
             placeholder="Enter Your Email"
-            className="w-96 rounded-md outline-none border-none pl-4"
+            className="w-full rounded-md outline-none border-none pl-4"
             onFocus={() => {
               setIsFocus(true);
             }}
