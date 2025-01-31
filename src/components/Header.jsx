@@ -25,8 +25,8 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 mb-4 border-b bg-white/90 border-gray-100 z-[400]">
-      <div className="flex justify-between items-center py-2">
+    <header className="sticky top-0 mb-4 border-b bg-white/98 border-gray-100 z-[400]">
+      <div className="flex justify-between items-center">
         <Link to={"/"}>
           <Logo />
         </Link>

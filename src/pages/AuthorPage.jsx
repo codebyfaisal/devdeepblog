@@ -2,31 +2,46 @@ import React from "react";
 
 const AuthorPage = () => {
   return (
-    <section>
-      <div className="grid md:grid-cols-7 gap-4 bg-gray-100 p-8 place-items-center">
-        <div className="md:col-span-4 md:p-4 space-y-2">
-          <h1 className="text-5xl mb-6">Meet the face behind the posts</h1>
-          <p className="text-justify">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
-            mollitia harum, accusamus impedit eos at perferendis assumenda illum
-            nobis, ducimus nihil perspiciatis, quos vel reprehenderit explicabo
-            deserunt. Est, fugit minima.
-          </p>
-          <p className="text-justify">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique
-            cum ipsa natus vero dolorem soluta illum nulla cumque quibusdam
-            recusandae? Delectus quae nisi architecto repellendus, a
-            necessitatibus. Temporibus, consectetur libero.
-          </p>
-        </div>
-        <div className="md:col-span-3 md:p-4">
+    <section className="flex justify-center items-center">
+      <div className="max-w-4xl bg-white shadow-lg rounded-2xl p-8 grid md:grid-cols-7 gap-8">
+        {/* Image Section */}
+        <div className="md:col-span-3 flex justify-center items-center">
           <img
-            src={
-              "https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/loft-office-with-vintage-decor-PFD2JSL-1.jpg"
-            }
-            alt=""
-            className="aspect-square object-cover"
+            src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/loft-office-with-vintage-decor-PFD2JSL-1.jpg"
+            alt="Author"
+            className="w-64 h-64 object-cover rounded-full border-4 border-gray-300"
           />
+        </div>
+
+        {/* Text Section */}
+        <div className="md:col-span-4">
+          <h1 className="text-3xl font-semibold">
+            {"Hey, I'm Muhammad Faisal"}!
+          </h1>
+          <p className="mt-1 mb-4 text-gray-700">Full Stack Web Developer</p>
+          <p className="text-lg text-gray-600 text-justify mb-4">
+            {
+              "Welcome to my digital space! I'm a passionate web developer who loves to share knowledge through writing. On this blog, I dive deep into web development topics, sharing practical insights, tutorials, and my experiences in building modern web applications."
+            }
+          </p>
+          <p className="text-lg text-gray-600 text-justify">
+            {
+              "When I'm not coding or writing technical articles, you can find me exploring new technologies, contributing to open-source projects, and enjoying cricket. Join me as I document my journey through the ever-evolving world of web development!"
+            }
+          </p>
+
+          {/* Social Links */}
+          <div className="flex space-x-6 mt-6">
+            <a href="#" className="hover: py-2 px-4 rounded-full text-lg">
+              Twitter
+            </a>
+            <a href="#" className="hover: py-2 px-4 rounded-full text-lg">
+              Instagram
+            </a>
+            <a href="#" className="hover: py-2 px-4 rounded-full text-lg">
+              LinkedIn
+            </a>
+          </div>
         </div>
       </div>
     </section>
