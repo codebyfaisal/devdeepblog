@@ -2,17 +2,22 @@ import { useEffect, useState } from "react";
 import { Logo } from ".";
 import { bmcLogo, bmcIcon } from "../assets";
 import { GitHubLogoIcon, PauseIcon, Cross1Icon } from "@radix-ui/react-icons";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const linkLi = (link = "") => (
   <li className="group">
-    <Link to={`/${link}`}>
-      <span className="relative inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:transition-all before:duration-200 group-hover:before:bg-black">
-        <span className="relative transition-all duration-200 capitalize group-hover:text-white">
-          {link === "" ? "home" : link}
-        </span>
+    <NavLink
+      to={`/${link}`}
+      className={({ isActive }) =>
+        `relative px-2 inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:transition-all before:duration-200 group-hover:before:bg-black group-hover:text-white ${
+          isActive ? "border-b border-black" : ""
+        }`
+      }
+    >
+      <span className="relative transition-all duration-200 capitalize">
+        {link === "" ? "home" : link}
       </span>
-    </Link>
+    </NavLink>
   </li>
 );
 
@@ -20,7 +25,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 mb-14 border-b bg-white/90 border-gray-100 z-[400]">
+    <header className="sticky top-0 mb-4 border-b bg-white/90 border-gray-100 z-[400]">
       <div className="flex justify-between items-center py-2">
         <Link to={"/"}>
           <Logo />
@@ -28,8 +33,9 @@ const Navbar = () => {
 
         {/* desktop navbar */}
         <nav className="hidden md:block">
-          <ul className="flex gap-4 text-lg items-center">
+          <ul className="flex text-lg items-center">
             {linkLi()}
+            {linkLi("Blogs")}
             {linkLi("author")}
             {linkLi("contact")}
           </ul>
@@ -43,6 +49,7 @@ const Navbar = () => {
         >
           <ul className="flex flex-col justify-evenly py-8 gap-8 text-lg items-end pr-6 min-w-36">
             {linkLi()}
+            {linkLi("Blogs")}
             {linkLi("author")}
             {linkLi("contact")}
           </ul>

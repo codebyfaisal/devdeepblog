@@ -12,7 +12,7 @@ const ContactPage = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center py-12 sm:px-4"
+      className="flex flex-col items-center justify-center sm:px-4"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
       {/* Main Content */}
@@ -21,8 +21,9 @@ const ContactPage = () => {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900">Get in Touch</h1>
           <p className="mt-2 text-lg text-gray-700">
-            We'd love to hear from you! Fill out the form below or reach out via
-            email.
+            {
+              "We'd love to hear from you! Fill out the form below or reach out via email."
+            }
           </p>
         </div>
 
@@ -36,32 +37,35 @@ const ContactPage = () => {
             name="name"
             id="name"
             placeholder="Name"
-            className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 hover:ring-gray-500 sm:col-span-1"
+            className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 focus:ring-gray-500 sm:col-span-1"
           />
           <input
             type="email"
             name="email"
             id="email"
             placeholder="Email"
-            className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 hover:ring-gray-500 sm:col-span-1"
+            className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 focus:ring-gray-500 sm:col-span-1"
           />
           <input
             type="text"
             name="subject"
             id="subject"
             placeholder="subject"
-            className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 hover:ring-gray-500 sm:col-span-2"
+            className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 focus:ring-gray-500 sm:col-span-2"
           />
           <textarea
             name="message"
             id="message"
+            rows={7}
             placeholder="Write your message"
-            className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 hover:ring-gray-500 sm:col-span-2"
+            className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 focus:ring-gray-500 sm:col-span-2"
           ></textarea>
           <button
             type="submit"
             className={`py-2 px-4 cursor-pointer rounded-md text-white bg-black/80 transition duration-150 hover:bg-black sm:col-span-2 flex gap-2 justify-center font-medium`}
-          > Send
+          >
+            {" "}
+            Send
             <PaperPlaneIcon
               className={`-rotate-20 transition duration-150`}
               width={18}
@@ -78,18 +82,9 @@ const ContactPage = () => {
               href="mailto:contact@example.com"
               className="text-blue-600 underline"
             >
-              contact@example.com
+              codebyfaisal@gmail.com
             </a>
             .
-          </p>
-          <p className="text-gray-600">
-            Follow us on social media for updates:
-            <a
-              href="https://www.github.com/codebyfaisal"
-              className="ml-2 text-blue-600 underline"
-            >
-              GitHub
-            </a>
           </p>
         </div>
       </div>

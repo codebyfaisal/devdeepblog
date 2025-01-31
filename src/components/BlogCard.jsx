@@ -5,48 +5,6 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 const BlogCard = ({ blog, styles, index }) => {
   return (
-    // <article className={`${styles} relative mb-10`}>
-
-    //   <div
-    //     className={`z-10 flex flex-col sm:flex-row transition duration-500 h-full items-center w-full ${
-    //       index % 2 === 0 ? "" : "sm:flex-row-reverse"
-    //     }`}
-    //   >
-    //     {/* Image Section */}
-    //     <div className="w-full sm:w-1/2">
-    //       <Link to={`/blog/${blog.slug}`} className="block max-h-60">
-    //         <img
-    //           src={blog.image}
-    //           alt={blog.title}
-    //           className="object-cover w-full rounded-md max-h-70 aspect-video"
-    //         />
-    //       </Link>
-    //     </div>
-
-    //     {/* Content Section */}
-    //     <div className="w-full sm:w-1/2 p-4 sm:p-6">
-    //       <h1 className="text-xl font-semibold text-gray-800">{blog.title}</h1>
-    //       <p className="text-sm text-gray-600 mt-1">{blog.author}</p>
-    //       <p className="text-sm text-gray-500 mt-1">{blog.date}</p>
-    //       <p className="mt-2 text-gray-700 font-light hidden md:block">
-    //         {blog.description}
-    //       </p>
-
-    //       {/* Read More Button */}
-    //       <Link
-    //         to={`/blogs/${blog.slug}`}
-    //         className="group mt-4 inline-block relative overflow-hidden py-1 px-3 ring ring-transparent hover:ring-black transition-all duration-300"
-    //       >
-    //         <span className="flex items-center gap-1 text-white z-10 group-hover:text-black">
-    //           Read more
-    //           <ArrowRightIcon className="w-4 h-4 mt-1" />
-    //         </span>
-    //         <span className="bg-black absolute top-0 left-0 w-full h-full z-[-10] transition-all duration-300 group-hover:left-full"></span>
-    //       </Link>
-    //     </div>
-    //   </div>
-    // </article>
-
     <article className={`${styles} relative mb-10`}>
       <div
         className={`flex w-full h-full absolute top-0 left-0 z-[-10] ${
