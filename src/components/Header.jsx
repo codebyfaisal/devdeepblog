@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Logo } from ".";
 import { bmcLogo, bmcIcon } from "../assets";
 import { GitHubLogoIcon, PauseIcon, Cross1Icon } from "@radix-ui/react-icons";
@@ -7,7 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 const linkLi = (link = "") => (
   <li className="group">
     <NavLink
-      to={`/${link}`}
+      to={`/${link === "blogs" ? "blogs/search?q=all" : link}`}
       className={({ isActive }) =>
         `relative px-2 inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:transition-all before:duration-200 group-hover:before:bg-black group-hover:text-white ${
           isActive ? "border-b border-black" : ""
@@ -35,7 +35,7 @@ const Navbar = () => {
         <nav className="hidden md:block">
           <ul className="flex text-lg items-center">
             {linkLi()}
-            {linkLi("Blogs")}
+            {linkLi("blogs")}
             {linkLi("author")}
             {linkLi("contact")}
           </ul>
@@ -49,7 +49,7 @@ const Navbar = () => {
         >
           <ul className="flex flex-col justify-evenly py-8 gap-8 text-lg items-end pr-6 min-w-36">
             {linkLi()}
-            {linkLi("Blogs")}
+            {linkLi("blogs")}
             {linkLi("author")}
             {linkLi("contact")}
           </ul>

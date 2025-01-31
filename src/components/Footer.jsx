@@ -7,7 +7,7 @@ import {
 } from "@radix-ui/react-icons";
 
 const Footer = () => {
-  const [isFocus, setIsFocus] = useState(false);
+  const [isFocus, setIsFocus] = useState(false); 
 
   return (
     <footer className="border-t border-gray-200 pt-8 space-y-8 text-gray-700">
@@ -18,8 +18,8 @@ const Footer = () => {
         </h2>
         <form
           action="POST"
-          className={`flex items-center ring ring-gray-200 group transition duration-150 min-w-60 w-96 max-w-96 ${
-            isFocus ? "ring-gray-400" : ""
+          className={`flex items-center ring ring-gray-300 group transition duration-150 min-w-60 w-96 max-w-96 rounded-sm overflow-hidden ${
+            isFocus ? "ring-gray-700" : ""
           }`}
         >
           <input
@@ -39,7 +39,7 @@ const Footer = () => {
             type="submit"
             className={`py-2 px-4 cursor-pointer text-white bg-black/80 transition duration-150 group-hover:bg-black ${
               isFocus ? "bg-black" : ""
-            }`}
+            }`}            
           >
             <PaperPlaneIcon
               className={`-rotate-20 transition duration-150 ${
