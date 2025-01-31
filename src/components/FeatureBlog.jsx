@@ -18,7 +18,7 @@ const FeatureBlog = () => {
       </Helmet>
 
       {/* Feature Blog Container */}
-      <div className="relative overflow-hidden rounded-md max-h-[70vh] shadow-md group">
+      <div className="relative overflow-hidden rounded-md md:max-h-[70vh] shadow-md group">
         <img
           src={image}
           alt={title}
