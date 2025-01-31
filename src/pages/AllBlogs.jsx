@@ -7,7 +7,6 @@ import { useSearchParams } from "react-router-dom";
 const AllBlogs = () => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get("q");
-  console.log(searchParams);
 
   return (
     <section>

@@ -7,7 +7,7 @@ import {
   ThemeToggler,
 } from "./components";
 import { BlogPage, AuthorPage, ContactPage, AllBlogs } from "./pages";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
                 </>
               }
             />            
+            <Route path="/blogs" element={<Navigate to="/blogs/search?q=all" replace />} />
             <Route path="/blogs/search" element={<AllBlogs />} />{/* AllBlogs Page */}
             <Route path="/blogs/:blogId" element={<BlogPage />} />{/* Blog Page */}            
             <Route path="/author" element={<AuthorPage />} />{/* Author Page */}            
