@@ -5,50 +5,90 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 const BlogCard = ({ blog, styles, index }) => {
   return (
-    <article className={`${styles} h-[50vh] relative mb-10`}>
+    // <article className={`${styles} relative mb-10`}>
+
+    //   <div
+    //     className={`z-10 flex flex-col sm:flex-row transition duration-500 h-full items-center w-full ${
+    //       index % 2 === 0 ? "" : "sm:flex-row-reverse"
+    //     }`}
+    //   >
+    //     {/* Image Section */}
+    //     <div className="w-full sm:w-1/2">
+    //       <Link to={`/blog/${blog.slug}`} className="block max-h-60">
+    //         <img
+    //           src={blog.image}
+    //           alt={blog.title}
+    //           className="object-cover w-full rounded-md max-h-70 aspect-video"
+    //         />
+    //       </Link>
+    //     </div>
+
+    //     {/* Content Section */}
+    //     <div className="w-full sm:w-1/2 p-4 sm:p-6">
+    //       <h1 className="text-xl font-semibold text-gray-800">{blog.title}</h1>
+    //       <p className="text-sm text-gray-600 mt-1">{blog.author}</p>
+    //       <p className="text-sm text-gray-500 mt-1">{blog.date}</p>
+    //       <p className="mt-2 text-gray-700 font-light hidden md:block">
+    //         {blog.description}
+    //       </p>
+
+    //       {/* Read More Button */}
+    //       <Link
+    //         to={`/blogs/${blog.slug}`}
+    //         className="group mt-4 inline-block relative overflow-hidden py-1 px-3 ring ring-transparent hover:ring-black transition-all duration-300"
+    //       >
+    //         <span className="flex items-center gap-1 text-white z-10 group-hover:text-black">
+    //           Read more
+    //           <ArrowRightIcon className="w-4 h-4 mt-1" />
+    //         </span>
+    //         <span className="bg-black absolute top-0 left-0 w-full h-full z-[-10] transition-all duration-300 group-hover:left-full"></span>
+    //       </Link>
+    //     </div>
+    //   </div>
+    // </article>
+
+    <article className={`${styles} relative mb-10`}>
       <div
         className={`flex w-full h-full absolute top-0 left-0 z-[-10] ${
           index % 2 === 0 ? "flex-row-reverse" : ""
         }`}
       >
-        <div className={"h-full w-4/6 bg-gray-100 col-span-2"}></div>
-        <div className={"h-full w-2/6"}></div>
+        <div className={"w-full h-full sm:w-4/6 bg-gray-100 col-span-2"}></div>
+        <div className={"hidden sm:block h-full w-2/6"}></div>
       </div>
 
       <div
-        className={`z-10 flex transition duration-500 h-full items-center w-full
-          ${index % 2 === 0 ? "" : "flex-row-reverse"}`}
+        className={`z-10 flex flex-col sm:flex-row transition duration-500 h-full items-center w-full ${
+          index % 2 === 0 ? "" : "sm:flex-row-reverse"
+        }`}
       >
-        <div className={"w-1/6 h-full"}></div>
+        {/* Image Section */}
+        <div className="w-full sm:w-1/2 overflow-hidden rounded-sm sm:rounded-none">
+          <Link to={`/blog/${blog.slug}`} className="block sm:p-4 overflow-hidden">
+            <img
+              src={blog.image}
+              alt={blog.title}
+              className="object-cover w-full h-full aspect-video sm:aspect-square transition-transform duration-300 hover:scale-105"
+            />
+          </Link>
+        </div>
 
-        <Link
-          to={`/blog/1 ${blog.slug}`}
-          className={
-            "w-2/6 h-full aspect-square py-4 flex items-center justify-center"
-          }
-        >
-          <img
-            src={blog.image}
-            alt={blog.title}
-            className="object-cover w-full aspect-square rounded-md"
-          />
-        </Link>
+        {/* Content Section */}
+        <div className="w-full sm:w-1/2 p-4 sm:p-8">
+          <h1 className="text-2xl font-bold text-gray-900">{blog.title}</h1>
+          <p className="text-sm text-gray-600 mt-2">{blog.author}</p>
+          <p className="text-sm text-gray-500 mt-1">{blog.date}</p>
+          <p className="mt-4 text-gray-700 font-light hidden md:block">
+            {blog.description}
+          </p>
 
-        <div className={"w-3/6 px-8"}>
-          <h1 className="text-xl font-semibold">{blog.title}</h1>
-          <p className="text-sm opacity-85">{blog.author}</p>
-          <p className="text-sm opacity-65 mt-1">{blog.date}</p>
-          <p className="mt-2 font-light">{blog.description}</p>
-
-          <Link
-            to={`/blogs/${blog.slug}`}
-            className="group mt-4 inline-block relative overflow-hidden py-1 px-3 group ring hover:ring-black"
-          >
-            <span className="flex items-center gap-1 text-white z-10 group-hover:text-black">
-              read more
-              <ArrowRightIcon className="mt-1" />
+          {/* Read More Button */}
+          <Link to={`/blogs/${blog.slug}`} className="flex justify-end group mt-8">
+            <span className="inline-flex gap-2 py-1 px-3 ring ring-black relative text-white group-hover:ring group-hover:text-black">
+              <span className="w-full h-full bg-black absolute top-0 left-0 z-[-10] transition-all duration-200 group-hover:bg-transparent"></span>
+              <span className="z-10 transition-all duration-200">Read more</span>
+              <ArrowRightIcon className="w-4 h-4 mt-1.5 z-10 transition-all duration-200" />
             </span>
-            <span className="bg-black absolute top-0 left-0 w-full h-full z-[-10] transition-all duration-300 group-hover:left-full"></span>
           </Link>
         </div>
       </div>
