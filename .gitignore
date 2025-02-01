@@ -1,24 +1,46 @@
+# Node.js dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# OS-specific files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# IDE/editor directories
+.vscode/
+.idea/
+.sublime-workspace
+.sublime-project
+
+# Package lock files (if using Yarn)
+yarn.lock
+
+# npm package lock file
+package-lock.json
+
+# Front-end build artifacts
+/frontend/build/
+/frontend/dist/
+
+# Back-end build artifacts
+/backend/build/
+/backend/dist/
+
+# Admin panel build artifacts
+/admin/build/
+/admin/dist/
