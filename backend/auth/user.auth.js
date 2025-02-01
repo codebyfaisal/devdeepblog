@@ -1,5 +1,4 @@
 const auth = (req, res, next) => {
-  console.log("Authenticate");
   next();
 };
 

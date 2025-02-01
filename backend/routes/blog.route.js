@@ -6,13 +6,14 @@ import {
   updatePost,
   deletePost,
 } from "../controllers/blog.controller.js";
+import uploadImage from "../middlewares/multer.middleware.js";
 
 const blogRouter = express.Router();
 
 blogRouter
-  .get("/posts", getAllPosts)
-  .post("/posts", auth, createPost)
-  .put("/posts/:postId", auth, updatePost)
-  .delete("/posts/:postId", auth, deletePost);
+  .get("/post", getAllPosts)
+  .post("/post", auth, uploadImage, createPost)
+  .put("/post/:postId", auth, updatePost)
+  .delete("/post/:postId", auth, deletePost);
 
 export default blogRouter;

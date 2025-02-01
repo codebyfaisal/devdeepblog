@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import process from "process";
-import auth from "./auth/user.auth.js";
+import blogRouter from "./routes/blog.route.js";
 
 const app = express();
-const port = process.env.PORT || 3000;
-app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 // CORS configuration
 // const corsOptions = {
 //   origin: 'http://your-frontend-domain.com', // Replace with your frontend domain
@@ -14,16 +13,12 @@ app.use(cors());
 //   allowedHeaders: ['Content-Type', 'Authorization'],
 // };
 // app.use(cors(corsOptions));
-
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Server running" });
 });
 
-app.get("/blog", auth, (req, res) => {
-  res.status(200).json({ msg: "Authenticated" });
-});
+app.use("/api/blogs", blogRouter);
 
-app.listen(port, () => {
-  console.log(`Server running on localhost:${port}`);
-});
+export default app;
