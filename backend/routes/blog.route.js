@@ -7,12 +7,13 @@ import {
   deletePost,
 } from "../controllers/blog.controller.js";
 import uploadImage from "../middlewares/multer.middleware.js";
+import uploadToCloudinary from "../middlewares/cloudinary.middleware.js";
 
 const blogRouter = express.Router();
 
 blogRouter
   .get("/post", getAllPosts)
-  .post("/post", auth, uploadImage, createPost)
+  .post("/post", auth, uploadImage,uploadToCloudinary, createPost)
   .put("/post/:postId", auth, updatePost)
   .delete("/post/:postId", auth, deletePost);
 

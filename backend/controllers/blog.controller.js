@@ -2,8 +2,8 @@ const getAllPosts = (req, res) => {
   return res.status(200).json({ msg: "All posts" });
 };
 
-const createPost = (req, res) => {  
-  return res.status(200).json({ msg: "Post Created" });
+const createPost = async (req, res) => {
+    return res.status(200).json({ msg: "Post Created", images: req.imagesUrl });
 };
 
 const updatePost = (req, res) => {
