@@ -13,8 +13,8 @@ const blogRouter = express.Router();
 
 blogRouter
   .get("/post", getAllPosts)
-  .post("/post", auth, uploadImage,uploadToCloudinary, createPost)
-  .put("/post/:postId", auth, updatePost)
-  .delete("/post/:postId", auth, deletePost);
+  .post("/post", auth, uploadImage, uploadToCloudinary, createPost)
+  .put("/post/:postSlug", auth, uploadImage, uploadToCloudinary, updatePost)
+  .delete("/post/:postSlug", auth, deletePost);
 
 export default blogRouter;

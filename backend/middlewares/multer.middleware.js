@@ -1,4 +1,5 @@
 import multer from "multer";
+import BLOG from "../model/blog.model.js";
 
 const storage = multer.memoryStorage();
 
@@ -20,7 +21,17 @@ const upload = multer({
 
 // handle Multer errors
 const uploadImage = (req, res, next) => {
-  upload(req, res, (err) => {
+  upload(req, res, async (err) => {
+    // return if blog slug already exist
+    const processSlug = req.body.slug.trim().toLowerCase().split(" ").join("-");
+    if (req.method === "POST" || req.method === "post") {
+      const isBlog = await BLOG.findOne({ slug: processSlug });
+      if (isBlog) {
+        return res.status(400).json({ msg: "Slug/Url already exist" });
+      }
+    }
+    req.body.slug = processSlug;
+
     if (err) {
       return handleError(err, res);
     }

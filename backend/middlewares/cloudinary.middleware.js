@@ -1,5 +1,6 @@
-import cloudinary from "../config/cloudinaryconfig.js";
+import cloudinary from "../config/cloudinary.config.js";
 import sharp from "sharp";
+import BLOG from "../model/blog.model.js";
 
 const uploadToCloudinary = async (req, res, next) => {
   try {
@@ -8,18 +9,21 @@ const uploadToCloudinary = async (req, res, next) => {
         .toLowerCase()
         .replace(/[^a-z0-9]/g, "")
         .trim();
-
+    
     // Helper function that wraps the Cloudinary upload_stream in a promise.
     const uploadBuffer = (buffer, options) => {
       return new Promise((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream(options, (error, result) => {
-          if (error) {
-            console.error("Cloudinary upload error:", error);
-            return reject(error);
+        const stream = cloudinary.uploader.upload_stream(
+          options,
+          (error, result) => {
+            if (error) {
+              console.error("Cloudinary upload error:", error);
+              return reject(error);
+            }
+            // Resolve with the Cloudinary result when done.
+            resolve(result);
           }
-          // Resolve with the Cloudinary result when done.
-          resolve(result);
-        });
+        );
         stream.end(buffer);
       });
     };
@@ -36,7 +40,7 @@ const uploadToCloudinary = async (req, res, next) => {
         const result = await uploadBuffer(processedBuffer, {
           public_id: image_name(req.body.title),
           resource_type: "image",
-          folder: "devdeepblog",
+          folder: process.env.CLOUDINARY_FOLDER,
           format: "webp",
         });
         return result.url;

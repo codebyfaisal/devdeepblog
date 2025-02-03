@@ -24,16 +24,25 @@ const blogSchema = mongoose.Schema(
         message: "A blog post must have at least two tags.",
       },
     },
+    slug: {
+      type: String,
+      required: [true, "Slug is required"],
+      unique: true,
+    },
     content: {
       type: String,
       required: [true, "Content is required."],
+    },
+    images: {
+      type: [String],
+      required: [true, "At least one image is required"],
     },
   },
   { timestamps: true }
 );
 
-blogSchema.index({ publishedDate: -1 });
+blogSchema.index({ publishedDate: 1 });
 
-const BLOG = mongoose.model("Blog", blogSchema);
+const BLOG = mongoose.model.blog || mongoose.model("blog", blogSchema);
 
 export default BLOG;
