@@ -6,15 +6,22 @@ import {
   updatePost,
   deletePost,
 } from "../controllers/blog.controller.js";
-import uploadImage from "../middlewares/multer.middleware.js";
-import uploadToCloudinary from "../middlewares/cloudinary.middleware.js";
+// import uploadToCloudinary from "../middlewares/cloudinary.middleware.js";
+import multerUpload from "../middlewares/multerUpload.middleware.js";
+import cloudinaryUpload from "../services/cloudinary.service.js";
 
 const blogRouter = express.Router();
 
 blogRouter
   .get("/post", getAllPosts)
-  .post("/post", auth, uploadImage, uploadToCloudinary, createPost)
-  .put("/post/:postSlug", auth, uploadImage, uploadToCloudinary, updatePost)
+  .post(
+    "/post",
+    auth,
+    multerUpload
+    cloudinaryUpload,
+    // createPost
+  )
+  // .put("/post/", auth, putUploadImage, uploadToCloudinary, updatePost)
   .delete("/post/:postSlug", auth, deletePost);
 
 export default blogRouter;

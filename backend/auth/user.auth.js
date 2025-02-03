@@ -1,4 +1,4 @@
-const auth = (req, res, next) => {   
+const auth = (req, res, next) => {
   next();
 };
 

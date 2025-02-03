@@ -5,7 +5,7 @@ const getAllPosts = async (req, res) => {
     const blogs = await BLOG.find({});
     return res.status(200).json({ msg: "All posts", blogs });
   } catch (error) {
-    console.error("Error creating post:", error);
+    console.error("Error creating post:", error);    
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -44,6 +44,8 @@ const createPost = async (req, res) => {
 };
 
 const updatePost = (req, res) => {
+  const slug  = req.body;
+  console.log(slug);
   return res.status(200).json({ msg: "Post Updated" });
 };
 
