@@ -1,6 +1,7 @@
 import multer from "multer";
 import upload from "./multer.middleware.js";
 import BLOG from "../model/blog.model.js";
+import fs from "fs/promises";
 
 const multerUpload = (req, res, next) => {
   upload(req, res, async (err) => {
@@ -8,7 +9,7 @@ const multerUpload = (req, res, next) => {
     if (err instanceof multer.MulterError) {
       if (err.code === "LIMIT_UNEXPECTED_FILE") {
         return res.status(400).json({ error: "Maximum 4 files allowed" });
-      }    
+      }
       return res.status(400).json({ error: err.message });
     } else if (err) {
       return res.status(400).json({ error: "File upload failed" }); // Unknown error
@@ -22,12 +23,15 @@ const multerUpload = (req, res, next) => {
     }
 
     if (req.method === "POST" || req.method === "post") {
-      const slug = req.body.slug
-      const isBlog = await BLOG.findOne({ slug});
+      const isBlog = await BLOG.findOne({ slug: req.body.slug });
       if (isBlog) {
+        if (req.files && req.files.length > 0) {
+          req.files.forEach(async (file) => {
+            await fs.unlink(file.path);
+          });
+        }
         return res.status(400).json({ msg: "Slug/Url already exist" });
       }
-      req.body.slug = processSlug;
     }
 
     next();

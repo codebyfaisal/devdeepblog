@@ -33,10 +33,16 @@ const blogSchema = mongoose.Schema(
       type: String,
       required: [true, "Content is required."],
     },
-    images: {
-      type: [String],
-      required: [true, "At least one image is required"],
-    },
+    images: [
+      {
+        url: {
+          type: String,
+        },
+        public_id: {
+          type: String,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
