@@ -4,6 +4,7 @@ import "dotenv/config";
 import blogRouter from "./routes/blog.route.js";
 import connectMongoDB from "./config/mongodb.config.js";
 import "./utils/cleanupTemp.util.js";
+import adminLogin from "./controllers/adminLogin.controller.js";
 
 connectMongoDB();
 const app = express();
@@ -21,6 +22,7 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Server running" });
 });
+app.use("/admin", adminLogin);
 
 app.use("/api/blogs", blogRouter);
 

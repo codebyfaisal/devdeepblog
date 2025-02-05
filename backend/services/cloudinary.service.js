@@ -1,8 +1,15 @@
 import cloudinary from "../config/cloudinary.config.js";
 import fs from "fs/promises";
+import deleteCloudinary from "./delete.cloudinary.service.js";
 
 const cloudinaryUpload = async (req, res, next) => {
   try {
+    if (
+      (req.method === "put" || req.method === "PUT") &&
+      (!req.files || req.files.length === 0)
+    ) {
+      return next();
+    }
     if (!req.files || req.files.length === 0) {
       return res
         .status(400)
@@ -12,7 +19,7 @@ const cloudinaryUpload = async (req, res, next) => {
     const uploadPromises = req.files.map(async (file) => {
       try {
         const result = await cloudinary.uploader.upload(file.path, {
-          folder: "devdeepblog",
+          folder: "devdeepblog/",
           public_id: file.filename,
           format: "webp",
         });
@@ -29,6 +36,14 @@ const cloudinaryUpload = async (req, res, next) => {
     const uploadedFiles = await Promise.all(uploadPromises);
 
     req.body = { ...req.body, images: uploadedFiles };
+
+    // if request if PUT and images need to delete
+    if (
+      (req.method === "put" || req.method === "PUT") &&
+      req.body.imagesToDelete
+    ) {
+      deleteCloudinary(req, res, next);
+    }
 
     next();
   } catch (error) {

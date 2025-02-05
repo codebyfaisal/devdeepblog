@@ -5,6 +5,7 @@ import fs from "fs/promises";
 
 const multerUpload = (req, res, next) => {
   upload(req, res, async (err) => {
+    
     // Check if Multer threw an error
     if (err instanceof multer.MulterError) {
       if (err.code === "LIMIT_UNEXPECTED_FILE") {
@@ -16,13 +17,13 @@ const multerUpload = (req, res, next) => {
     }
 
     // Check if images are provided
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({
-        error: "No images uploaded. Please upload at least one image.",
-      });
-    }
-
     if (req.method === "POST" || req.method === "post") {
+      if (!req.files || req.files.length === 0) {
+        return res.status(400).json({
+          error: "No images uploaded. Please upload at least one image.",
+        });
+      }
+      
       const isBlog = await BLOG.findOne({ slug: req.body.slug });
       if (isBlog) {
         if (req.files && req.files.length > 0) {
