@@ -29,6 +29,10 @@ const blogSchema = mongoose.Schema(
       required: [true, "Slug is required"],
       unique: true,
     },
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+    },
     content: {
       type: String,
       required: [true, "Content is required."],

@@ -12,7 +12,7 @@ const getAllBlogs = async (req, res) => {
 
 const createBlog = async (req, res) => {
   try {
-    const { title, tags, content, slug, images } = req.body;
+    const { title, tags, content, slug, description, images } = req.body;
 
     const processedTags = tags.split(",").map((tag) => tag.trim());
 
@@ -22,6 +22,7 @@ const createBlog = async (req, res) => {
       publishedDate: new Date(),
       tags: processedTags,
       slug,
+      description,
       content,
       images,
     });
@@ -48,6 +49,7 @@ const updateBlog = async (req, res) => {
       title,
       slug,
       tags,
+      description,
       content,
       imagesToDelete,
       images: newImages,
@@ -60,6 +62,7 @@ const updateBlog = async (req, res) => {
     let updateFields = {};
     if (title) updateFields.title = title;
     if (tags) updateFields.tags = tags;
+    if (description) updateFields.description = description;
     if (content) updateFields.content = content;
 
     const blog = await BLOG.findOne({ slug });
@@ -72,23 +75,23 @@ const updateBlog = async (req, res) => {
 
     console.log(final_images);
 
-    if(title || tags || content) {
+    if (title || tags || content) {
       await BLOG.findOneAndUpdate(
         { slug },
         {
-          images: final_images,        
-          ...updateFields
+          images: final_images,
+          ...updateFields,
         }
-      );      
+      );
     } else {
       await BLOG.findOneAndUpdate(
         { slug },
         {
           images: final_images,
         }
-      );     
+      );
     }
-    
+
     return res.status(200).json({ msg: "Blog updated successfully" });
   } catch (error) {
     console.error("Error updating Blog:", error);
