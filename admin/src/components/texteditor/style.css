@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+.editor {
+  button {
+    padding: 0.1rem 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  button svg {
+    margin: 0 !important;
+    width: 15px;
+    height: 15px;
+  }
+
+  button:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+  }
+
+  button.is-active {
+    background-color: #000000;
+    color: white;
+  }
+
+  button:hover:not(:disabled):not(.is-active) {
+    background-color: #d3d3d3;
+  }
+
+  /* Editor */
+  /* Basic editor styles */
+  .tiptap {
+    :first-child {
+      margin-top: 0;
+    }
+
+    /* List styles */
+    ul,
+    ol {
+      padding: 0 1rem;
+      margin: 1.25rem 1rem 1.25rem 0.4rem;
+
+      li p {
+        margin-top: 0.25em;
+        margin-bottom: 0.25em;
+      }
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    /* Heading styles */
+    h1,
+    h2,
+    h3,
+    h4 {
+      line-height: 1.1;
+      margin-top: 2.5rem;
+      text-wrap: pretty;
+    }
+
+    h1,
+    h2 {
+      margin-top: 3.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+    }
+    h5 {
+      font-size: 1rem;
+    }
+
+    /* Code and preformatted text styles */
+    code {
+      background-color: var(--purple-light);
+      border-radius: 0.4rem;
+      color: var(--black);
+      font-size: 0.85rem;
+      padding: 0.25em 0.3em;
+    }
+
+    pre {
+      background: black;
+      border-radius: 0.5rem;
+      color: white;
+      font-family: 'JetBrainsMono', monospace;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+
+      code {
+        background: none;
+        color: inherit;
+        font-size: 0.8rem;
+        padding: 0;
+      }
+    }
+
+    blockquote {
+      @apply border-l-2 border-gray-500;
+      @apply ml-3;
+      @apply pl-2;
+    }
+
+    hr {
+      border: none;
+      @apply border-t border-black/20;
+      margin: 2rem 0;
+    }
+  }
+
+  .tiptap[role="textbox"] {
+    border: none !important;
+    outline: none !important;
+    min-height: 20rem;
+  }
+}
