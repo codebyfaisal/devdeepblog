@@ -41,9 +41,11 @@ const blogSchema = mongoose.Schema(
       {
         url: {
           type: String,
+          default: Math.random() + "a",
         },
         public_id: {
           type: String,
+          default: Math.random() + "a",
         },
       },
     ],

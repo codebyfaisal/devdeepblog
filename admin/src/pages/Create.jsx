@@ -58,6 +58,9 @@ const Create = () => {
       if (response.status === 200) {
         console.log(result.msg);
         toast.success("Blog Successfully Created");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else if (response.status === 400) {
         console.error(result.error);
         toast.error(result.error);
@@ -66,7 +69,6 @@ const Create = () => {
       console.error("Error submitting form:", error);
     } finally {
       setIsResponse(true);
-      window.location.reload()
     }
   };
 
@@ -100,7 +102,9 @@ const Create = () => {
             name="slug"
             value={slug}
             required
-            onChange={(e) => setSlug(e.target.value.split(" ").join("-"))}
+            onChange={(e) =>
+              setSlug(e.target.value.split(" ").join("-").toLowerCase())
+            }
             className="outline-none w-full px-3 py-2 ring ring-black/20 rounded-md focus:ring-black/80"
           />
 

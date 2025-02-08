@@ -2,8 +2,9 @@ import { useEffect, useRef, useState, useContext } from "react";
 import TextEditor from "../components/texteditor/TextEditor";
 import { BlogsContext } from "../context/Blogs.jsx";
 import { useParams } from "react-router";
-import { X } from "lucide-react";
-import {Loader} from "../components";
+import { ImageOff, X } from "lucide-react";
+import { Loader } from "../components";
+import { toast } from "react-toastify";
 
 const Update = () => {
   const { slug } = useParams();
@@ -30,7 +31,9 @@ const Update = () => {
         setPrevImages(fetchedBlog.images || []);
       }
     };
+
     fetchBlog();
+    console.log(getBlog("netflix-engineering-blog"));
   }, [slug, getBlog]);
 
   const handlePrevImages = (public_id) => {
@@ -84,7 +87,16 @@ const Update = () => {
       );
 
       const result = await response.json();
-      console.log("Success:", result);
+      if (response.status === 200) {
+        console.log(result.msg);
+        toast.success("Blog Successfully Updated");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else if (response.status === 400) {
+        console.error(result.error);
+        toast.error(result.error);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -101,8 +113,11 @@ const Update = () => {
       ) : (
         ""
       )}
-      <form onSubmit={handleSubmit} className="flex gap-2 justify-center z-[-10]">
-        <div className="space-y-4 max-w-2xl">
+      <form
+        onSubmit={handleSubmit}
+        className="flex gap-2 justify-center z-[-10]"
+      >
+        <div className="space-y-4 md:max-w-2xl w-full">
           <h2 className="text-2xl font-semibold">Update Blog</h2>
 
           {/* Title Input */}
@@ -210,20 +225,25 @@ const Update = () => {
               Current Images
             </label>
             <div className="grid grid-cols-3 gap-4 max-h-32">
-              {prevImages
-                ? prevImages.map((img) => (
-                    <div className="group relative h-full" key={img.public_id}>
-                      <img
-                        src={img.url}
-                        className="w-full h-full object-cover rounded-md ring ring-black/10"
-                      />
-                      <X
-                        className="absolute top-1 right-1 bg-red-500 rounded-full p-1 cursor-pointer opacity-0 transition duration-200 group-hover:opacity-100"
-                        onClick={() => handlePrevImages(img.public_id)}
-                      />
-                    </div>
-                  ))
-                : ""}
+              {prevImages.length > 0 ? (
+                prevImages.map((img) => (
+                  <div key={img.public_id} className="group relative h-full">
+                    <img
+                      src={img.url}
+                      className="w-full h-fit object-cover rounded-md ring ring-black/10 aspect-video"
+                    />
+                    <X
+                      className="absolute top-1 right-1 bg-red-500 rounded-full p-1 cursor-pointer opacity-0 transition duration-200 group-hover:opacity-100"
+                      onClick={() => handlePrevImages(img.public_id)}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="w-full h-full aspect-video rounded-md ring ring-black/10 flex justify-center items-center flex-col opacity-70 my-1">
+                  <ImageOff />
+                  No images
+                </div>
+              )}
             </div>
           </div>
 

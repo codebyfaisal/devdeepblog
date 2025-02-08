@@ -8,14 +8,14 @@ const Layout = () => {
         <Navbar />
       </header>
 
-      <div className="max-h-[calc(100%-3.5rem)] h-full flex gap-2">
+      <div className="max-h-[calc(100%-3.5rem)] h-full flex gap-2 flex-col md:flex-row">
         {/* Sidebar */}
-        <aside className="w-2/12 ring ring-black/10 rounded-md md:min-w-58 max-w-58 p-4">
+        <aside className="w-full md:w-2/12 ring ring-black/10 rounded-md md:min-w-58 md:max-w-58 p-4 flex justify-center md:justify-start">
           <Sidebar />
         </aside>
 
         {/* Main */}
-        <main className="w-10/12 rounded-md p-4 overflow-y-auto relative">
+        <main className="w-full md:w-10/12 rounded-md p-4 overflow-y-auto relative">
           <Main />
         </main>
       </div>

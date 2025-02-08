@@ -63,47 +63,35 @@ const createBlog = async (req, res) => {
 
 const updateBlog = async (req, res) => {
   try {
-    const {
-      title,
-      slug,
-      tags,
-      description,
-      content,
-      imagesToDelete,
-      images: newImages,
-    } = req.body;
+    const { title, slug, tags, description, content, imagesToDelete, images: newImages } = req.body;
 
-    // console.log(req.body);
-
-    const proccessedTags = tags.split(",");
-
+    const processedTags = tags.split(",");
     const blog = await BLOG.findOne({ slug });
+
+    if (!blog) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
 
     const filtered_images = blog.images.filter(
       (b_img) => !imagesToDelete.split(",").includes(b_img.public_id)
     );
     const safeNewImages = Array.isArray(newImages) ? newImages : [];
 
-    // Combine filtered images with the new images
     const final_images = [...filtered_images, ...safeNewImages];
 
     await BLOG.findOneAndUpdate(
       { slug },
-      {
-        title,
-        slug,
-        description,
-        content,
-        tags: proccessedTags,
-        images: final_images,
-      }
+      { title, slug, description, content, tags: processedTags, images: final_images }
     );
 
     return res.status(200).json({ msg: "Blog updated successfully" });
-    return;
+
   } catch (error) {
     console.error("Error updating Blog:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    
+    if (!res.headersSent) {
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
   }
 };
 
