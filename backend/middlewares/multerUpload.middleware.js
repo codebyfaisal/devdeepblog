@@ -5,7 +5,6 @@ import fs from "fs/promises";
 
 const multerUpload = (req, res, next) => {
   upload(req, res, async (err) => {
-    
     // Check if Multer threw an error
     if (err instanceof multer.MulterError) {
       if (err.code === "LIMIT_UNEXPECTED_FILE") {

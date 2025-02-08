@@ -14,11 +14,9 @@ const deleteCloudinary = async (req, res, next) => {
     }
 
     // if request if PUT
-    if (
-      (req.method === "put" || req.method === "PUT") &&
-      req.body.imagesToDelete
-    ) {
-      publicIds = req.body.imagesToDelete;
+    if (req.method === "put" || req.method === "PUT") {
+      publicIds = req.body.imagesToDelete.split(",");
+      console.log(req.body);      
     }
 
     await cloudinary.api.delete_resources(publicIds);

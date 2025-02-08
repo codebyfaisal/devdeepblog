@@ -15,7 +15,7 @@ const Layout = () => {
         </aside>
 
         {/* Main */}
-        <main className="w-10/12 rounded-md p-4 overflow-y-auto">
+        <main className="w-10/12 rounded-md p-4 overflow-y-auto relative">
           <Main />
         </main>
       </div>

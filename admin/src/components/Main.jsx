@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router";
-import { Dashboard, Login, Blogs, Create } from "../pages";
+import { Dashboard, Login, Blogs, Create, Update } from "../pages";
 
 const Main = () => {
   return (
@@ -8,8 +8,11 @@ const Main = () => {
       <Routes>
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/create" element={<Create />} />
+        <Route path="/blogs">
+          <Route index element={<Blogs />} />
+          <Route path="create" element={<Create />} />
+          <Route path="update/:slug" element={<Update />} />
+        </Route>
       </Routes>
     </>
   );

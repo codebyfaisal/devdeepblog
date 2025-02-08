@@ -8,6 +8,8 @@ const cloudinaryUpload = async (req, res, next) => {
       (req.method === "put" || req.method === "PUT") &&
       (!req.files || req.files.length === 0)
     ) {
+      // if request is put but no new image and need to delete an old images
+      if (req.body.imagesToDelete) deleteCloudinary(req, res, next);
       return next();
     }
     if (!req.files || req.files.length === 0) {
@@ -37,7 +39,7 @@ const cloudinaryUpload = async (req, res, next) => {
 
     req.body = { ...req.body, images: uploadedFiles };
 
-    // if request if PUT and images need to delete
+    // if request is PUT and images need to delete
     if (
       (req.method === "put" || req.method === "PUT") &&
       req.body.imagesToDelete

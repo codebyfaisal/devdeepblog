@@ -1,6 +1,7 @@
 import express from "express";
 import auth from "../auth/user.auth.js";
 import {
+  getBlog,
   getAllBlogs,
   createBlog,
   updateBlog,
@@ -13,9 +14,10 @@ import deleteCloudinary from "../services/delete.cloudinary.service.js";
 const blogRouter = express.Router();
 
 blogRouter
-  .get("/post", getAllBlogs)
-  .post("/post", auth, multerUpload, cloudinaryUpload, createBlog)
-  .put("/post", auth, multerUpload, cloudinaryUpload, updateBlog)
-  .delete("/post/:slug", auth, deleteCloudinary, deleteBlog);
+  .get("/all", getAllBlogs)
+  .get("/:slug", getBlog)
+  .post("/", auth, multerUpload, cloudinaryUpload, createBlog)
+  .put("/", auth, multerUpload, cloudinaryUpload, updateBlog)
+  .delete("/:slug", auth, deleteCloudinary, deleteBlog);
 
 export default blogRouter;

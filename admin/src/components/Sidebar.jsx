@@ -1,6 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router"; // Corrected import
-import { CardStackPlusIcon, DashboardIcon, ListBulletIcon, UpdateIcon } from "@radix-ui/react-icons";
+import { NavLink } from "react-router";
+import { LayoutDashboard, ListIcon, MessageCircleCode, MessageCircleIcon, SquarePenIcon } from "lucide-react";
 
 const Sidebar = () => {
   const linkClasses = ({ isActive }) =>
@@ -9,18 +8,18 @@ const Sidebar = () => {
     }`;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 font-semibold">
       <NavLink to="/dashboard" className={linkClasses}>
-        <DashboardIcon /> Dashboard
+        <LayoutDashboard width={20} height={20} /> Dashboard
       </NavLink>
-      <NavLink to="/blogs" className={linkClasses}>
-        <ListBulletIcon /> Blogs
+      <NavLink to="/blogs" className={linkClasses} end>
+        <ListIcon width={20} height={20} /> Blogs
       </NavLink>
-      <NavLink to="/create" className={linkClasses}>
-        <CardStackPlusIcon /> Create
+      <NavLink to="/blogs/create" className={linkClasses} end>
+        <SquarePenIcon width={20} height={20} /> Create
       </NavLink>
-      <NavLink to="/update" className={linkClasses}>
-        <UpdateIcon /> Update
+      <NavLink to="/blogs/comments" className={linkClasses}>
+        <MessageCircleCode width={20} height={20} /> Comments
       </NavLink>
     </div>
   );

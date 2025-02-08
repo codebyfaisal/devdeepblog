@@ -1,9 +1,25 @@
 import BLOG from "../model/blog.model.js";
 
+const getBlog = async (req, res) => {
+  const { slug } = req.params;
+  console.log(req.params);
+
+  try {
+    const blog = await BLOG.findOne({ slug });
+    setTimeout(() => {
+      return res.status(200).json({ msg: "Blog", blog });
+    }, 2000);
+  } catch (error) {
+    console.error("Error fething Blogs:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 const getAllBlogs = async (req, res) => {
   try {
     const blogs = await BLOG.find({});
-    return res.status(200).json({ msg: "All Blogs", blogs });
+    setTimeout(() => {
+      return res.status(200).json({ msg: "All Blogs", blogs });
+    }, 2000);
   } catch (error) {
     console.error("Error fething Blogs:", error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -12,19 +28,21 @@ const getAllBlogs = async (req, res) => {
 
 const createBlog = async (req, res) => {
   try {
-    const { title, tags, content, slug, description, images } = req.body;
+    const { title, slug, description, content, tags, images } = req.body;
+
+    console.log(req.body);
 
     const processedTags = tags.split(",").map((tag) => tag.trim());
 
     // Create a new blog post
     const blog = new BLOG({
       title,
-      publishedDate: new Date(),
-      tags: processedTags,
       slug,
       description,
       content,
+      tags: processedTags,
       images,
+      publishedDate: new Date(),
     });
 
     await blog.save();
@@ -55,44 +73,34 @@ const updateBlog = async (req, res) => {
       images: newImages,
     } = req.body;
 
-    // Ensure imagesToDelete is an array
-    const imagesToDeletes = [imagesToDelete];
+    // console.log(req.body);
 
-    // Prepare update object for other fields
-    let updateFields = {};
-    if (title) updateFields.title = title;
-    if (tags) updateFields.tags = tags;
-    if (description) updateFields.description = description;
-    if (content) updateFields.content = content;
+    const proccessedTags = tags.split(",");
 
     const blog = await BLOG.findOne({ slug });
 
     const filtered_images = blog.images.filter(
-      (b_img) => !imagesToDeletes.includes(b_img.public_id)
+      (b_img) => !imagesToDelete.split(",").includes(b_img.public_id)
     );
-    // Combine the filtered images with the new_images
-    const final_images = [...filtered_images, ...newImages];
+    const safeNewImages = Array.isArray(newImages) ? newImages : [];
 
-    console.log(final_images);
+    // Combine filtered images with the new images
+    const final_images = [...filtered_images, ...safeNewImages];
 
-    if (title || tags || content) {
-      await BLOG.findOneAndUpdate(
-        { slug },
-        {
-          images: final_images,
-          ...updateFields,
-        }
-      );
-    } else {
-      await BLOG.findOneAndUpdate(
-        { slug },
-        {
-          images: final_images,
-        }
-      );
-    }
+    await BLOG.findOneAndUpdate(
+      { slug },
+      {
+        title,
+        slug,
+        description,
+        content,
+        tags: proccessedTags,
+        images: final_images,
+      }
+    );
 
     return res.status(200).json({ msg: "Blog updated successfully" });
+    return;
   } catch (error) {
     console.error("Error updating Blog:", error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -106,11 +114,11 @@ const deleteBlog = async (req, res) => {
     if (isDelete) {
       return res.status(200).json({ msg: "Blog Successfully Deleted" });
     } else {
-      return res.status(404).json({ msg: "Blog Not Found or Try again" });
+      return res.status(404).json({ err: "Blog Not Found or Try again" });
     }
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-export { getAllBlogs, createBlog, updateBlog, deleteBlog };
+export { getBlog, getAllBlogs, createBlog, updateBlog, deleteBlog };

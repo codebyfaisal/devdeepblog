@@ -2,6 +2,7 @@ import multer from "multer";
 
 // File filtering to validate image types
 const fileFilter = (req, file, cb) => {
+  console.log(req.body);
   // check if request is put and file are or not
   if ((req.method === "put" || req.method === "PUT") && !file) {
     return cb(null, false);

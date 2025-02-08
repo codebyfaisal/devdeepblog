@@ -1,5 +1,5 @@
-import React from "react";
-// import Colorful from "@uiw/react-color-colorful";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
@@ -37,6 +37,7 @@ const MenuBar = () => {
     <div className="control-group border-b border-black/10 pb-2 mb-4">
       <div className="button-group flex gap-2 flex-wrap">
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "is-active" : ""}
@@ -45,6 +46,7 @@ const MenuBar = () => {
           <Bold />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={!editor.can().chain().focus().toggleItalic().run()}
           className={editor.isActive("italic") ? "is-active" : ""}
@@ -53,6 +55,7 @@ const MenuBar = () => {
           <Italic />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={!editor.can().chain().focus().toggleStrike().run()}
           className={editor.isActive("strike") ? "is-active" : ""}
@@ -61,16 +64,21 @@ const MenuBar = () => {
           <Strikethrough />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().setParagraph().run()}
           className={editor.isActive("paragraph") ? "is-active" : ""}
         >
           P
         </button>
-        <button onClick={() => editor.chain().focus().clearNodes().run()}>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().clearNodes().run()}
+        >
           <RemoveFormatting />
         </button>
 
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
@@ -81,6 +89,7 @@ const MenuBar = () => {
           <Heading1 />
         </button>
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
@@ -91,6 +100,7 @@ const MenuBar = () => {
           <Heading2 />
         </button>
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 3 }).run()
           }
@@ -101,6 +111,7 @@ const MenuBar = () => {
           <Heading3 />
         </button>
         <button
+          type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 4 }).run()
           }
@@ -111,41 +122,48 @@ const MenuBar = () => {
           <Heading4 />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={editor.isActive("bulletList") ? "is-active" : ""}
         >
           <List />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={editor.isActive("orderedList") ? "is-active" : ""}
         >
           <ListOrdered />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={editor.isActive("codeBlock") ? "is-active" : ""}
         >
           <CodeXmlIcon />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={editor.isActive("blockquote") ? "is-active" : ""}
         >
           <Quote className="rotate-180" />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
         >
           <SeparatorHorizontal />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}
         >
           <Undo2 />
         </button>
         <button
+          type="button"
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}
         >
@@ -182,16 +200,20 @@ const extensions = [
   }),
 ];
 
-function TextEditor() {
+function TextEditor({ content }) {
   return (
     <div className="editor ring ring-black/20 p-2 rounded-md focus-within:ring-black/80">
       <EditorProvider
         slotBefore={<MenuBar />}
         extensions={extensions}
-        content={"Content"}
+        content={content}
       />
     </div>
   );
 }
+
+TextEditor.propTypes = {
+  content: PropTypes.string.isRequired,
+};
 
 export default TextEditor;
