@@ -5,6 +5,7 @@ import ThemeToggler from "./ThemeToggler";
 import LatestBlogs from "./LatestBlogs";
 import BlogCard from "./BlogCard";
 import Searchbar from "./Searchbar";
+import Loader from "./Loader";
 import Footer from "./Footer";
 
 export {
@@ -15,5 +16,6 @@ export {
   LatestBlogs,
   BlogCard,
   Searchbar,
+  Loader,
   Footer,
 };

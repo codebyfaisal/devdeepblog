@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
+import { ContactHelmet } from "../components/helmet";
 
 const ContactPage = () => {
   // Form State
@@ -15,6 +16,7 @@ const ContactPage = () => {
       className="flex flex-col items-center justify-center sm:px-4"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
+      <ContactHelmet />
       {/* Main Content */}
       <div className="max-w-xl lg:max-w-2xl w-full space-y-8">
         {/* Heading */}

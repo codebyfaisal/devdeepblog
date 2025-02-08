@@ -5,7 +5,7 @@ const deleteCloudinary = async (req, res, next) => {
   try {
     // empty array
     let publicIds = [];
-
+    
     // if request is POST
     if (req.method === "delete" || req.method === "DELETE") {
       const { slug } = req.params;

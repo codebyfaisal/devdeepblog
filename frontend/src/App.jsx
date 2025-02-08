@@ -1,34 +1,33 @@
-import {
-  FeatureBlog,
-  Footer,
-  Header,
-  LatestBlogs,
-  Searchbar,
-  ThemeToggler,
-} from "./components";
-import { BlogPage, AuthorPage, ContactPage, AllBlogs } from "./pages";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Footer, Header, Loader, Searchbar, ThemeToggler } from "./components";
+import { HomePage, BlogPage, AuthorPage, ContactPage, AllBlogs } from "./pages";
+import { Routes, Route, Navigate } from "react-router";
 import { motion } from "motion/react";
-import { AuthorContext } from "./context/Author.jsx";
 import { useContext } from "react";
+import { BlogsContext } from "./context/Blogs.jsx";
 
 function App() {
-  const author = useContext(AuthorContext);
-  console.log(author);
-
+  const { isLoading } = useContext(BlogsContext);
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }} // Adjust duration as needed
-      className="h-screen size-full relative overflow-x-hidden font-exo2"
+      className={`h-screen size-full relative overflow-x-hidden font-cabin ${
+        isLoading ? "overflow-hidden" : ""
+      }`}
     >
-      <ThemeToggler />
+      {/* <ThemeToggler /> */}
+      {isLoading ? (
+        <div className="absolute z-[10000] bg-white w-full h-full flex flex-col justify-center items-center">
+          <div className="scale-200 space-y-4">
+            <Loader />
+            <span>DevDeep loading...</span>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+
       {/* Theme Toggler */}
       <div className="max-w-5xl mx-auto px-4 lg:px-0">
         {" "}
@@ -39,23 +38,14 @@ function App() {
           {/* Main Content */}
           <Routes>
             {/* Home Page */}
-            <Route
-              path="/"
-              element={
-                <>
-                  {" "}
-                  <FeatureBlog />
-                  <LatestBlogs />
-                </>
-              }
-            />
+            <Route path="/" element={<HomePage />} />
             <Route
               path="/blogs"
               element={<Navigate to="/blogs/search?q=all" replace />}
             />
             <Route path="/blogs/search" element={<AllBlogs />} />
             {/* AllBlogs Page */}
-            <Route path="/blogs/:blogId" element={<BlogPage />} />
+            <Route path="/blogs/:slug" element={<BlogPage />} />
             {/* Blog Page */}
             <Route path="/author" element={<AuthorPage />} />
             {/* Author Page */}

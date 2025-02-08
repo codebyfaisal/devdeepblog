@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 
-const BlogCard = ({ blog, styles, index }) => {
+const BlogCard = ({ blog, styles = "", index }) => {
   return (
     <article className={`${styles} relative mb-10`}>
       <div
@@ -22,9 +22,14 @@ const BlogCard = ({ blog, styles, index }) => {
       >
         {/* Image Section */}
         <div className="w-full sm:w-1/2 overflow-hidden rounded-sm sm:rounded-none">
-          <Link to={`/blog/${blog.slug}`} className="block sm:p-4 overflow-hidden">
+          <Link
+            to={`/blog/${blog.slug}`}
+            className="block sm:p-4 overflow-hidden"
+          >
             <img
-              src={blog.image}
+              src={
+                blog.images ? (blog.images[0] ? blog.images[0].url : "https://placehold.co/600x400") : "https://placehold.co/600x400"
+              }
               alt={blog.title}
               className="object-cover w-full h-full aspect-video sm:aspect-square transition-transform duration-300 hover:scale-105"
             />
@@ -34,17 +39,24 @@ const BlogCard = ({ blog, styles, index }) => {
         {/* Content Section */}
         <div className="w-full sm:w-1/2 p-4 sm:p-8">
           <h1 className="text-2xl font-bold text-gray-900">{blog.title}</h1>
-          <p className="text-sm text-gray-600 mt-2">{blog.author}</p>
-          <p className="text-sm text-gray-500 mt-1">{blog.date}</p>
+          <p className="text-sm text-gray-600 mt-2">Muhammad Faisal</p>
+          <p className="text-sm text-gray-500 mt-1">
+            {new Date(blog.publishedDate).toLocaleDateString()}
+          </p>
           <p className="mt-4 text-gray-700 font-light hidden md:block">
             {blog.description}
           </p>
 
           {/* Read More Button */}
-          <Link to={`/blogs/${blog.slug}`} className="flex justify-end group mt-8">
+          <Link
+            to={`/blogs/${blog.slug}`}
+            className="flex justify-end group mt-8"
+          >
             <span className="inline-flex gap-2 py-1 px-3 ring ring-black relative text-white group-hover:ring group-hover:text-black">
               <span className="w-full h-full bg-black absolute top-0 left-0 z-[-10] transition-all duration-200 group-hover:bg-transparent"></span>
-              <span className="z-10 transition-all duration-200">Read more</span>
+              <span className="z-10 transition-all duration-200">
+                Read more
+              </span>
               <ArrowRightIcon className="w-4 h-4 mt-1.5 z-10 transition-all duration-200" />
             </span>
           </Link>

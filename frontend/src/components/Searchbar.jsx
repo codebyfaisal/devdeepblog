@@ -10,6 +10,7 @@ const Searchbar = () => {
     e.preventDefault();
     if (search === "") return;
     navigate("/blogs/search?q=" + search);
+    setTimeout(() => setSearch(""), 100);
   };
 
   return (
@@ -25,6 +26,7 @@ const Searchbar = () => {
         id="search"
         placeholder="Search for blog"
         className="w-full rounded-md outline-none border-none pl-4 appearance-none"
+        value={search}
         onFocus={() => {
           setIsFocus(true);
         }}
