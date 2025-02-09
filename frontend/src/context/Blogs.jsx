@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-
+const backend_url = import.meta.env.VITE_API_URL;
 const BlogsContext = createContext(null);
 
 const BlogsProvider = (props) => {
@@ -10,9 +10,7 @@ const BlogsProvider = (props) => {
     const fetchBlogs = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          import.meta.env.VITE_API_URL + "/api/blogs/all"
-        );
+        const response = await fetch(backend_url + "/api/blogs/all");
         const data = await response.json();
         setBlogs(data.blogs || []);
       } catch (error) {

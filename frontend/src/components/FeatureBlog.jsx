@@ -25,7 +25,7 @@ const FeatureBlog = () => {
 
             <div className="sm:absolute sm:inset-0 flex flex-col justify-end p-3 sm:p-6 sm:bg-gradient-to-t from-black via-transparent to-transparent sm:text-white">
               {/* Blog Title */}
-              <Link to={`/blog/${blog.slug}`}>
+              <Link to={`/blogs/${blog.slug}`}>
                 <h1 className="text-3xl sm:text-5xl font-extrabold mb-2">
                   {blog.title}
                 </h1>

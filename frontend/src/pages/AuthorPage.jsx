@@ -1,5 +1,6 @@
 import React from "react";
 import { AuthorHelmet } from "../components/helmet";
+const profileUrl = import.meta.env.VITE_PROFILE_URL;
 
 const AuthorPage = () => {
   return (
@@ -9,7 +10,7 @@ const AuthorPage = () => {
         {/* Image Section */}
         <div className="md:col-span-3 flex justify-center items-center">
           <img
-            src="https://awcdn1.ahmad.works/writing/wp-content/uploads/2015/05/loft-office-with-vintage-decor-PFD2JSL-1.jpg"
+            src={profileUrl}
             alt="Author"
             className="w-64 h-64 object-cover rounded-full border-4 border-gray-300"
           />

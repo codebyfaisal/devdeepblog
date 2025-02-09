@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { BlogCard } from ".";
-import { dummyBlog } from "../assets";
 import { BlogsContext } from "../context/Blogs.jsx";
 
 const LatestBlogs = () => {
@@ -16,7 +15,7 @@ const LatestBlogs = () => {
       <h1 className="text-5xl font-bold mb-8">Latest Blogs</h1>
       {blogs ? (
         <div className="grid grid-cols-12 gap-4">
-          {blogs.map((blog, i) => (
+          {blogs.slice(1).map((blog, i) => (
             <BlogCard blog={blog} styles="col-span-12" index={i} key={i} />
           ))}
         </div>

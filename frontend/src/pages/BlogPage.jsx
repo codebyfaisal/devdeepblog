@@ -111,35 +111,6 @@ const BlogPage = () => {
         )}
 
         <aside className="p-8 lg:p-0 lg:w-1/4 space-y-8 blog relative">
-          <div className="sticky top-0">
-            <h2 className="text-xl font-semibold mb-3">Popular Posts</h2>
-            <ul className="list-none space-y-2">
-              <li>
-                <Link
-                  to="/blogs/winter-photography"
-                  className="text-black/70 hover:underline hover:to-black/90"
-                >
-                  {"Capturing Winter's Beauty: A Photography Guide"}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blogs/seasonal-writing"
-                  className="text-black/70 hover:underline hover:to-black/90"
-                >
-                  How to Use the Seasons to Inspire Your Writing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/blogs/holiday-diy"
-                  className="text-black/70 hover:underline hover:to-black/90"
-                >
-                  DIY Crafts for a Cozy Winter Home
-                </Link>
-              </li>
-            </ul>
-          </div>
 
           {blog?.tags?.length > 0 && (
             <div className="space-y-3 sticky">

@@ -19,7 +19,7 @@ function App() {
       {/* <ThemeToggler /> */}
       {isLoading ? (
         <div className="absolute z-[10000] bg-white w-full h-full flex flex-col justify-center items-center">
-          <div className="scale-200 space-y-4">
+          <div className="md:scale-200 space-y-4">
             <Loader />
             <span>DevDeep loading...</span>
           </div>

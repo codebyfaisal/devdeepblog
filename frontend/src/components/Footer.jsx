@@ -7,7 +7,7 @@ import {
 } from "@radix-ui/react-icons";
 
 const Footer = () => {
-  const [isFocus, setIsFocus] = useState(false); 
+  const [isFocus, setIsFocus] = useState(false);
 
   return (
     <footer className="border-t border-gray-200 pt-8 space-y-8 text-gray-700">
@@ -39,7 +39,7 @@ const Footer = () => {
             type="submit"
             className={`py-2 px-4 cursor-pointer text-white bg-black/80 transition duration-150 group-hover:bg-black ${
               isFocus ? "bg-black" : ""
-            }`}            
+            }`}
           >
             <PaperPlaneIcon
               className={`-rotate-20 transition duration-150 ${
@@ -89,7 +89,8 @@ const Footer = () => {
         <p>
           Powered by{" "}
           <a
-            href="https://www.github.com/codebyfaisal"
+            href="https://codebyfaisal.netlify.app"
+            target="_blank"
             className="text-blue-600 underline"
           >
             codebyfaisal
