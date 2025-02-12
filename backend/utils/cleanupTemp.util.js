@@ -2,7 +2,7 @@ import cron from "node-cron";
 import fs from "fs";
 import path from "path";
 
-const tempDir = path.join(process.cwd(), "temp"); // Absolute path to temp directory
+const tempDir = path.join(process.cwd(), "temp");
 
 // Schedule cleanup every night at 12 AM
 cron.schedule("0 0 * * *", async () => {

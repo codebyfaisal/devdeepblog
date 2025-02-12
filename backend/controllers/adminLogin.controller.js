@@ -4,7 +4,6 @@ const adminLogin = (req, res) => {
   try {
     const { username, password } = req.body;
 
-    console.log(username, password);
     if (
       username !== process.env.ADMIN_EMAIL ||
       password !== process.env.ADMIN_PASS
@@ -14,9 +13,8 @@ const adminLogin = (req, res) => {
 
     const token = jwt.sign({ username, password }, process.env.ADMIN_SECRET);
 
-    return res.status(200).json({ msg: "Login Successfully", token });
+    return res.status(200).json({ message: "Login Successfully", token });
   } catch (error) {
-    console.error("Error Login:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };

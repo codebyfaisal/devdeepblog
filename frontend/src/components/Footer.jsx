@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import {
   GitHubLogoIcon,
   InstagramLogoIcon,
@@ -8,6 +9,35 @@ import {
 
 const Footer = () => {
   const [isFocus, setIsFocus] = useState(false);
+  const [isResponse, setIsResponse] = useState(true);
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      setIsResponse(false);
+      const response = await fetch(
+        import.meta.env.VITE_API_URL + "/api/email/subscribe",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: e.target.email.value,
+          }),
+        }
+      );
+      const result = await response.json();
+      if (result.message) toast(result.message);
+      else if (result.error) toast.error("❌ Subscription failed. Try again.");
+    } catch (error) {
+      console.log(error);
+      toast.error("❌ An error occurred. Please try again later.");
+    } finally {
+      e.target.email.value = "";
+      setIsResponse(true);
+    }
+  };
 
   return (
     <footer className="border-t border-gray-200 pt-8 space-y-8 text-gray-700">
@@ -17,15 +47,21 @@ const Footer = () => {
           Stay updated with our latest content
         </h2>
         <form
-          action="POST"
-          className={`flex items-center ring ring-gray-300 group transition duration-150 min-w-60 w-96 max-w-96 rounded-sm overflow-hidden ${
+          onSubmit={handleSubmit}
+          className={`flex items-center ring ring-gray-300 group transition duration-150 min-w-60 w-96 max-w-96 rounded-sm overflow-hidden relative ${
             isFocus ? "ring-gray-700" : ""
           }`}
         >
+          {!isResponse ? (
+            <div className="w-full h-full absolute top-0 left-0 bg-white opacity-90 grid place-items-center">Please wait . . . </div>
+          ) : (
+            ""
+          )}
           <input
             type="email"
             name="email"
             id="email"
+            required={true}
             placeholder="Enter Your Email"
             className="w-full rounded-md outline-none border-none pl-4"
             onFocus={() => {
@@ -41,13 +77,17 @@ const Footer = () => {
               isFocus ? "bg-black" : ""
             }`}
           >
-            <PaperPlaneIcon
-              className={`-rotate-20 transition duration-150 ${
-                isFocus ? "text-white" : "group-hover:text-white"
-              }`}
-              width={20}
-              height={20}
-            />
+            {isResponse ? (
+              <PaperPlaneIcon
+                className={`-rotate-20 transition duration-150 ${
+                  isFocus ? "text-white" : "group-hover:text-white"
+                }`}
+                width={20}
+                height={20}
+              />
+            ) : (
+              <img src="../public/loading.svg" alt="loading" className="w-6" />
+            )}
           </button>
         </form>
       </div>

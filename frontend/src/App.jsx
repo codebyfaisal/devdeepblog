@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router";
 import { motion } from "motion/react";
 import { useContext } from "react";
 import { BlogsContext } from "./context/Blogs.jsx";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { isLoading } = useContext(BlogsContext);
@@ -55,6 +56,7 @@ function App() {
         </main>
         <Footer /> {/* Footer */}
       </div>
+      <ToastContainer/>
     </motion.div>
   );
 }

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { BlogsContext } from "../context/Blogs.jsx";
 import Skeleton from "react-loading-skeleton";
 import { ArrowDown, ArrowUp } from "lucide-react";
@@ -10,10 +10,6 @@ const Blogs = () => {
   const [sortedByTitle, setSortedByTitle] = useState(0);
   const [sortedByDate, setSortedByDate] = useState(0);
   const [isResponse, setIsResponse] = useState(true);
-
-  useEffect(() => {
-    console.log("Sorting by Title:", sortedByTitle);
-  }, [sortedByTitle]);
 
   // Sorting logic for Title
   const sortedBlogs = [...blogs].sort((a, b) => {

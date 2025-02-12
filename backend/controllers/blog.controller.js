@@ -1,40 +1,45 @@
 import BLOG from "../model/blog.model.js";
+import sendEmail from "../services/nodemailer.service.js";
+import blogEmailTemplate from "../templates/blogEmail.template.js";
+import fs from "fs";
+import path from "path";
+const serverUrl = process.env.SERVER_URL;
 
+const subscribersDir = path.join(process.cwd(), "subscribers");
+const user_email = process.env.GOOGLE_USER_EMAIL;
+
+// get blog by slug
 const getBlog = async (req, res) => {
   const { slug } = req.params;
-  console.log(req.params);
 
   try {
     const blog = await BLOG.findOne({ slug });
     setTimeout(() => {
-      return res.status(200).json({ msg: "Blog", blog });
+      return res.status(200).json({ message: "Blog", blog });
     }, 2000);
   } catch (error) {
-    console.error("Error fething Blogs:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-const getAllBlogs = async (req, res) => {
-  try {
-    const blogs = await BLOG.find({});
-    setTimeout(() => {
-      return res.status(200).json({ msg: "All Blogs", blogs });
-    }, 2000);
-  } catch (error) {
-    console.error("Error fething Blogs:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
+//  get all blogs
+const getAllBlogs = async (req, res) => {
+  try {
+    const blogs = await BLOG.find({});
+    return res.status(200).json({ message: "All Blogs", blogs });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+// create blog
 const createBlog = async (req, res) => {
   try {
     const { title, slug, description, content, tags, images } = req.body;
 
-    console.log(req.body);
-
     const processedTags = tags.split(",").map((tag) => tag.trim());
 
-    // Create a new blog post
+    // Create a new blog
     const blog = new BLOG({
       title,
       slug,
@@ -43,11 +48,39 @@ const createBlog = async (req, res) => {
       tags: processedTags,
       images,
       publishedDate: new Date(),
+      views: 0,
     });
 
     await blog.save();
 
-    return res.status(201).json({ msg: "Post Created", blog });
+    // read emails file
+    const data = await fs.promises.readFile(
+      subscribersDir + "/subscriber.txt",
+      "utf8"
+    );
+
+    // split into array -> get only emails -> delete the email
+    const emailList = data.split("\n").slice(0, -1).join(",");
+
+    const mailOptions = {
+      from: `DevDeepBlog ${user_email}`,
+      to: user_email,
+      bcc: emailList,
+      subject: `New Blog Notification: ${title}`,
+      html: blogEmailTemplate({
+        title,
+        description,
+        publishedDate: new Date().toLocaleDateString(),
+        image: images[0].url,
+      }),
+      headers: {
+        "List-Unsubscribe": `<${serverUrl}/api/email/unsubscribe>`,
+      },
+    };
+
+    await sendEmail(mailOptions);
+
+    return res.status(201).json({ message: "Post Created", blog });
   } catch (error) {
     console.log(error);
 
@@ -61,9 +94,18 @@ const createBlog = async (req, res) => {
   }
 };
 
+// update blog
 const updateBlog = async (req, res) => {
   try {
-    const { title, slug, tags, description, content, imagesToDelete, images: newImages } = req.body;
+    const {
+      title,
+      slug,
+      tags,
+      description,
+      content,
+      imagesToDelete,
+      images: newImages,
+    } = req.body;
 
     const processedTags = tags.split(",");
     const blog = await BLOG.findOne({ slug });
@@ -81,28 +123,33 @@ const updateBlog = async (req, res) => {
 
     await BLOG.findOneAndUpdate(
       { slug },
-      { title, slug, description, content, tags: processedTags, images: final_images }
+      {
+        title,
+        slug,
+        description,
+        content,
+        tags: processedTags,
+        images: final_images,
+      }
     );
 
-    return res.status(200).json({ msg: "Blog updated successfully" });
-
+    return res.status(200).json({ message: "Blog updated successfully" });
   } catch (error) {
-    console.error("Error updating Blog:", error);
-    
     if (!res.headersSent) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   }
 };
 
+// delete blog
 const deleteBlog = async (req, res) => {
   try {
     const { slug } = req.params;
     const isDelete = await BLOG.findOneAndDelete({ slug });
     if (isDelete) {
-      return res.status(200).json({ msg: "Blog Successfully Deleted" });
+      return res.status(200).json({ message: "Blog Successfully Deleted" });
     } else {
-      return res.status(404).json({ err: "Blog Not Found or Try again" });
+      return res.status(404).json({ error: "Blog Not Found or Try again" });
     }
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });

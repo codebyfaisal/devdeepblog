@@ -22,7 +22,7 @@ const multerUpload = (req, res, next) => {
           error: "No images uploaded. Please upload at least one image.",
         });
       }
-      
+
       const isBlog = await BLOG.findOne({ slug: req.body.slug });
       if (isBlog) {
         if (req.files && req.files.length > 0) {
@@ -30,7 +30,7 @@ const multerUpload = (req, res, next) => {
             await fs.unlink(file.path);
           });
         }
-        return res.status(400).json({ msg: "Slug/Url already exist" });
+        return res.status(400).json({ message: "Slug/Url already exist" });
       }
     }
 

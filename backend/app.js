@@ -5,6 +5,8 @@ import blogRouter from "./routes/blog.route.js";
 import connectMongoDB from "./config/mongodb.config.js";
 import "./utils/cleanupTemp.util.js";
 import adminLogin from "./controllers/adminLogin.controller.js";
+import emailTemplate from "./templates/blogEmail.template.js";
+import emailRouter from "./routes/email.route.js";
 
 connectMongoDB();
 const app = express();
@@ -20,10 +22,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.status(200).json({ msg: "Server running" });
+  // res.status(200).json({ message: "Server running" });
+
+  res.send(emailTemplate(blog));
 });
+
 app.use("/admin", adminLogin);
 
 app.use("/api/blogs", blogRouter);
+app.use("/api/email", emailRouter);
 
 export default app;

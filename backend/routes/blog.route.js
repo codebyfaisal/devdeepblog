@@ -1,5 +1,5 @@
 import express from "express";
-import auth from "../auth/user.auth.js";
+import auth from "../auth/admin.auth.js";
 import {
   getBlog,
   getAllBlogs,

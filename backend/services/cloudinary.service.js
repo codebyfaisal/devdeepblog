@@ -30,7 +30,6 @@ const cloudinaryUpload = async (req, res, next) => {
 
         return { url: result.secure_url, public_id: result.public_id };
       } catch (uploadError) {
-        console.error("Cloudinary Upload Error:", uploadError);
         return { error: "Failed to upload image", file: file.filename };
       }
     });
@@ -49,7 +48,6 @@ const cloudinaryUpload = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error("Upload Process Error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
