@@ -25,7 +25,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 mb-4 border-b bg-white/98 border-gray-100 z-[400]">
+    <header className="sticky top-0 border-b bg-white/98 border-gray-100 z-[400]">
       <div className="flex justify-between items-center">
         <Link to={"/"}>
           <Logo />
@@ -72,11 +72,13 @@ const Navbar = () => {
               src={bmcLogo}
               alt="Buy me coffee"
               className="max-h-8 hidden md:block"
+              loading="lazy"
             />
             <img
               src={bmcIcon}
               alt="Buy me coffee"
               className="max-h-8 md:hidden"
+              loading="lazy"
             />
           </a>
 

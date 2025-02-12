@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
   Card,
   CardContent,
@@ -6,13 +6,13 @@ import {
   CardTitle,
 } from "../components/ui/Card.jsx";
 import { ListBulletIcon, ChatBubbleIcon } from "@radix-ui/react-icons";
-import { BlogsContext } from "../context/Blogs.jsx";
+import { StoreContext } from "../context/Store.jsx";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Eye } from "lucide-react";
 
 const Dashboard = () => {
-  const { blogs, isLoading } = useContext(BlogsContext);
+  const { blogs, isLoading } = useContext(StoreContext);
   const sortedBlogs = blogs.sort(
     (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
   );

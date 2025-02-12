@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TextEditor from "../components/texteditor/TextEditor";
 import { Loader } from "../components";
 import { toast } from "react-toastify";
@@ -157,6 +157,7 @@ const Create = () => {
             {images.map((image, index) => (
               <img
                 key={index}
+                loading="lazy"
                 src={URL.createObjectURL(image)}
                 alt={`Uploaded ${index + 1}`}
                 className="w-full object-cover aspect-square rounded-md ring ring-black/10"

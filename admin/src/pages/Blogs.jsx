@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import { BlogsContext } from "../context/Blogs.jsx";
+import { StoreContext } from "../context/Store.jsx";
 import Skeleton from "react-loading-skeleton";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { Loader } from "../components";
 import { Link } from "react-router";
 
 const Blogs = () => {
-  const { blogs, isLoading } = useContext(BlogsContext);
+  const { blogs, isLoading } = useContext(StoreContext);
   const [sortedByTitle, setSortedByTitle] = useState(0);
   const [sortedByDate, setSortedByDate] = useState(0);
   const [isResponse, setIsResponse] = useState(true);

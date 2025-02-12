@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import { ContactHelmet } from "../components/helmet";
 
@@ -12,8 +12,8 @@ const ContactPage = () => {
   });
 
   return (
-    <div
-      className="flex flex-col items-center justify-center sm:px-4"
+    <section
+      className="flex flex-col items-center justify-center sm:px-4 my-12"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
       <ContactHelmet />
@@ -90,7 +90,7 @@ const ContactPage = () => {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

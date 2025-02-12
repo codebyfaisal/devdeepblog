@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router";
-import { Dashboard, Login, Blogs, Create, Update } from "../pages";
+import { Dashboard, Login, Blogs, Create, Update, Subscribers } from "../pages";
 
 const Main = () => {
   return (
@@ -13,6 +13,7 @@ const Main = () => {
           <Route path="create" element={<Create />} />
           <Route path="update/:slug" element={<Update />} />
         </Route>
+        <Route path="subscribers" element={<Subscribers />} />
       </Routes>
     </>
   );

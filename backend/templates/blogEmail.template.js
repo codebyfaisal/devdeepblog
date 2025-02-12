@@ -1,4 +1,4 @@
-const serverUrl = process.env.SERVER_URL;
+const frontendWebsiteUrl = process.env.FRONTEND_WEBSITE_URL;
 const blogEmailTemplate = (blog) => `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,11 +43,11 @@ const blogEmailTemplate = (blog) => `<!DOCTYPE html>
 
         <!-- Animated Blog Section -->
         <div class="blog">
-          <img src="${blog.image}" alt="Blog Image" />
+          <img src="${blog.image}" alt="Blog Image" loading="lazy" />
         </div>
 
         <!-- Call-to-Action Button -->
-        <a href="${serverUrl}/blogs/slug" class="cta-button">Read Full Blog</a>
+        <a href="${frontendWebsiteUrl}/blogs/${blog.slug}" class="cta-button">Read Full Blog</a>
 
         <p>
           Stay tuned for more updates, and don’t forget to share your thoughts with us!
@@ -55,15 +55,15 @@ const blogEmailTemplate = (blog) => `<!DOCTYPE html>
 
         <!-- Social Icons Section -->
         <div class="social-icons">
-          <a href="https://www.linkedin.com/in/codebyfaisal" target="_blank"><img src="https://img.icons8.com/ios-glyphs/30/linkedin.png" alt="LinkedIn" /></a>
-          <a href="https://www.github.com/codebyfaisal" target="_blank"><img src="https://img.icons8.com/ios-glyphs/30/github.png" alt="github" /></a>
+          <a href="https://www.linkedin.com/in/codebyfaisal" target="_blank"><img src="https://img.icons8.com/ios-glyphs/30/linkedin.png" alt="LinkedIn" loading="lazy" /></a>
+          <a href="https://www.github.com/codebyfaisal" target="_blank"><img src="https://img.icons8.com/ios-glyphs/30/github.png" alt="github" loading="lazy" /></a>
         </div>
       </div>
 
       <!-- Footer Section -->
       <div class="footer">
         You are receiving this email because you subscribed to our blog.<br />
-        If you no longer wish to receive updates, <a href="${serverUrl}/api/email/unsubscribe">unsubscribe here</a>.<br />
+        If you no longer wish to receive updates, <a href="${frontendWebsiteUrl}/email/unsubscribe">unsubscribe here</a>.<br />
         <small>&copy; 2025 devdeeepblog</small>
       </div>
     </div>

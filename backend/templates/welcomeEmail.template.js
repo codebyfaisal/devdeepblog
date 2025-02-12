@@ -1,4 +1,4 @@
-const serverUrl = process.env.SERVER_URL;
+const frontendWebsiteUrl = process.env.FRONTEND_WEBSITE_URL;
 const welcomeEmailTemplate = (subscriber) => `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -90,7 +90,7 @@ const welcomeEmailTemplate = (subscriber) => `<!DOCTYPE html>
         </p>
 
         <!-- Call-to-Action Button -->
-        <a href="${serverUrl}" class="cta-button">Check Out the Blog</a>
+        <a href="${frontendWebsiteUrl}" class="cta-button">Check Out the Blog</a>
 
         <p>
           Feel free to reply anytime! I'd love to hear your thoughts, feedback, or just chat about code. 😉
@@ -101,9 +101,7 @@ const welcomeEmailTemplate = (subscriber) => `<!DOCTYPE html>
       <div class="footer">
         You received this email because you subscribed to DevDeepBlog.<br />
         If you ever want to opt out, you can
-        <a href="${serverUrl}/api/email/unsubscribe/${
-  subscriber.email
-}">unsubscribe here</a>.
+        <a href="${frontendWebsiteUrl}/email/unsubscribe">unsubscribe here</a>.
         <br />
         <small>&copy; 2025 DevDeepBlog</small>
       </div>

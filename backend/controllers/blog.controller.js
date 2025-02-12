@@ -3,7 +3,7 @@ import sendEmail from "../services/nodemailer.service.js";
 import blogEmailTemplate from "../templates/blogEmail.template.js";
 import fs from "fs";
 import path from "path";
-const serverUrl = process.env.SERVER_URL;
+const frontendWebsiteUrl = process.env.FRONTEND_WEBSITE_URL
 
 const subscribersDir = path.join(process.cwd(), "subscribers");
 const user_email = process.env.GOOGLE_USER_EMAIL;
@@ -69,12 +69,13 @@ const createBlog = async (req, res) => {
       subject: `New Blog Notification: ${title}`,
       html: blogEmailTemplate({
         title,
+        slug,
         description,
         publishedDate: new Date().toLocaleDateString(),
         image: images[0].url,
       }),
       headers: {
-        "List-Unsubscribe": `<${serverUrl}/api/email/unsubscribe>`,
+        "List-Unsubscribe": `<${frontendWebsiteUrl}/email/unsubscribe>`,
       },
     };
 

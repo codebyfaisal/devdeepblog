@@ -20,6 +20,7 @@ const FeatureBlog = () => {
             <img
               src={blog.images[0].url}
               alt={blog.title}
+              loading="lazy"
               className="w-full h-full object-cover object-center min-h-40 group-hover:scale-[1.025] transition-transform duration-300"
             />
 

@@ -4,13 +4,14 @@ const profileUrl = import.meta.env.VITE_PROFILE_URL;
 
 const AuthorPage = () => {
   return (
-    <section className="flex justify-center items-center">
+    <section className="flex justify-center items-center my-12">
       <AuthorHelmet />
       <div className="max-w-4xl bg-white shadow-lg rounded-2xl p-8 grid md:grid-cols-7 gap-8">
         {/* Image Section */}
         <div className="md:col-span-3 flex justify-center items-center">
           <img
             src={profileUrl}
+            loading="lazy"
             alt="Author"
             className="w-64 h-64 object-cover rounded-full border-4 border-gray-300"
           />

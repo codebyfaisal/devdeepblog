@@ -12,7 +12,7 @@ const LatestBlogs = () => {
 
   return (
     <section>
-      <h1 className="text-5xl font-bold mb-8">Latest Blogs</h1>
+      <h1 className="text-5xl font-bold mb-4">Latest Blogs</h1>
       {blogs ? (
         <div className="grid grid-cols-12 gap-4">
           {blogs.slice(1).map((blog, i) => (

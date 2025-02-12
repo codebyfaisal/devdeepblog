@@ -101,7 +101,12 @@ const BlogPage = () => {
             </p>
 
             <div className="max-h-96">
-              <img src={blog.images[0].url} alt={formatSlug} className="w-full object-cover aspect-video"/>
+              <img
+                src={blog.images[0].url}
+                alt={formatSlug}
+                loading="lazy"
+                className="w-full object-cover aspect-video"
+              />
             </div>
 
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
@@ -111,7 +116,6 @@ const BlogPage = () => {
         )}
 
         <aside className="p-8 lg:p-0 lg:w-1/4 space-y-8 blog relative">
-
           {blog?.tags?.length > 0 && (
             <div className="space-y-3 sticky">
               <h2 className="text-xl font-semibold">Tags</h2>

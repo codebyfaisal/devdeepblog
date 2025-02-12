@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  scroll-behavior: smooth;
+}
+
 .font-cabin {
   font-family: "Cabin", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;

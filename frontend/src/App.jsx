@@ -1,62 +1,96 @@
-import { Footer, Header, Loader, Searchbar, ThemeToggler } from "./components";
-import { HomePage, BlogPage, AuthorPage, ContactPage, AllBlogs } from "./pages";
-import { Routes, Route, Navigate } from "react-router";
+import { useContext, useEffect } from "react";
+import { Footer, Header, Loader, Searchbar } from "./components";
+import {
+  HomePage,
+  BlogPage,
+  AuthorPage,
+  ContactPage,
+  AllBlogs,
+  UnsubscribePage,
+} from "./pages";
+import { Routes, Route, Navigate, useLocation } from "react-router";
 import { motion } from "motion/react";
-import { useContext } from "react";
 import { BlogsContext } from "./context/Blogs.jsx";
 import { ToastContainer } from "react-toastify";
 
 function App() {
   const { isLoading } = useContext(BlogsContext);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (location.hash === "#subscribe") {
+      const subscribeSection = document.getElementById("subscribe");
+      if (subscribeSection) {
+        setTimeout(() => {
+          subscribeSection.scrollIntoView({ behavior: "smooth" });
+          setTimeout(() => {
+            window.history.replaceState(null, "", location.pathname);
+          }, 500);
+        }, 100);
+      }
+    } else {
+      // Scroll to the top of the page on route change
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [location]);
+
+  const isUnsubscribePage = location.pathname === "/email/unsubscribe";
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }} // Adjust duration as needed
-      className={`h-screen size-full relative overflow-x-hidden font-cabin ${
+      transition={{ duration: 0.8 }}
+      className={`min-h-screen w-full relative font-cabin ${
         isLoading ? "overflow-hidden" : ""
       }`}
     >
-      {/* <ThemeToggler /> */}
-      {isLoading ? (
+      {isLoading && (
         <div className="absolute z-[10000] bg-white w-full h-full flex flex-col justify-center items-center">
           <div className="md:scale-200 space-y-4">
             <Loader />
             <span>DevDeep loading...</span>
           </div>
         </div>
-      ) : (
-        ""
       )}
 
-      {/* Theme Toggler */}
-      <div className="max-w-5xl mx-auto px-4 lg:px-0">
-        {" "}
-        {/* Main Content Wrapper */}
-        <Header /> {/* Header */}
-        <Searchbar /> {/* Searchbar */}
-        <main className="space-y-12 py-8">
-          {/* Main Content */}
+      <div className="max-w-5xl mx-auto px-4 lg:px-0 space-y-4">
+        {!isUnsubscribePage && (
+          <>
+            <Header />
+            <Searchbar />
+          </>
+        )}
+
+        <main>
           <Routes>
-            {/* Home Page */}
             <Route path="/" element={<HomePage />} />
             <Route
               path="/blogs"
               element={<Navigate to="/blogs/search?q=all" replace />}
             />
             <Route path="/blogs/search" element={<AllBlogs />} />
-            {/* AllBlogs Page */}
             <Route path="/blogs/:slug" element={<BlogPage />} />
-            {/* Blog Page */}
             <Route path="/author" element={<AuthorPage />} />
-            {/* Author Page */}
             <Route path="/contact" element={<ContactPage />} />
-            {/* Contact Page */}
+            <Route path="/email/unsubscribe" element={<UnsubscribePage />} />
           </Routes>
         </main>
-        <Footer /> {/* Footer */}
+
+        {!isUnsubscribePage && <Footer />}
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </motion.div>
   );
 }

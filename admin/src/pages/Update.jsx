@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import TextEditor from "../components/texteditor/TextEditor";
-import { BlogsContext } from "../context/Blogs.jsx";
+import { StoreContext } from "../context/Store.jsx";
 import { useParams } from "react-router";
 import { ImageOff, X } from "lucide-react";
 import { Loader } from "../components";
@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const Update = () => {
   const { slug } = useParams();
-  const { getBlog } = useContext(BlogsContext);
+  const { getBlog } = useContext(StoreContext);
   const [blog, setBlog] = useState(null);
   const [title, setTitle] = useState("");
   const [slugId, setSlugId] = useState("");
@@ -230,6 +230,7 @@ const Update = () => {
                   <div key={img.public_id} className="group relative h-full">
                     <img
                       src={img.url}
+                      loading="lazy"
                       className="w-full h-fit object-cover rounded-md ring ring-black/10 aspect-video"
                     />
                     <X
@@ -267,6 +268,7 @@ const Update = () => {
               {images.map((image, index) => (
                 <img
                   key={index}
+                  loading="lazy"
                   src={URL.createObjectURL(image)}
                   alt={`Uploaded ${index + 1}`}
                   className="w-full object-cover aspect-square rounded-md ring ring-black/10"

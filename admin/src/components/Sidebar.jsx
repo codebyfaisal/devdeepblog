@@ -3,8 +3,8 @@ import {
   LayoutDashboard,
   ListIcon,
   MessageCircleCode,
-  MessageCircleIcon,
   SquarePenIcon,
+  Users2Icon,
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -30,6 +30,10 @@ const Sidebar = () => {
       <NavLink to="/blogs/comments" className={linkClasses}>
         <MessageCircleCode width={20} height={20} />
         <span className="hidden md:inline">Comments</span>
+      </NavLink>
+      <NavLink to="/subscribers" className={linkClasses}>
+        <Users2Icon width={20} height={20} />
+        <span className="hidden md:inline">Subscribers</span>
       </NavLink>
     </div>
   );

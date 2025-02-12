@@ -8,7 +8,7 @@ const BlogCard = ({ blog, styles = "", index }) => {
     <article className={`${styles} relative mb-10`}>
       <div
         className={`flex w-full h-full absolute top-0 left-0 z-[-10] ${
-          index % 2 === 0 ? "flex-row-reverse" : ""
+          index % 2 === 0 ? "" : "flex-row-reverse"
         }`}
       >
         <div className={"w-full h-full sm:w-4/6 bg-gray-100 col-span-2"}></div>
@@ -17,7 +17,7 @@ const BlogCard = ({ blog, styles = "", index }) => {
 
       <div
         className={`z-10 flex flex-col sm:flex-row transition duration-500 h-full items-center w-full ${
-          index % 2 === 0 ? "" : "sm:flex-row-reverse"
+          index % 2 === 0 ? "sm:flex-row-reverse" : ""
         }`}
       >
         {/* Image Section */}
@@ -28,8 +28,13 @@ const BlogCard = ({ blog, styles = "", index }) => {
           >
             <img
               src={
-                blog.images ? (blog.images[0] ? blog.images[0].url : "https://placehold.co/600x400") : "https://placehold.co/600x400"
+                blog.images
+                  ? blog.images[0]
+                    ? blog.images[0].url
+                    : "https://placehold.co/600x400"
+                  : "https://placehold.co/600x400"
               }
+              loading="lazy"
               alt={blog.title}
               className="object-cover w-full h-full aspect-video sm:aspect-square transition-transform duration-300 hover:scale-105"
             />
@@ -72,9 +77,12 @@ BlogCard.propTypes = {
     slug: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    publishedDate: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired,
+      })
+    ),
   }).isRequired,
   styles: PropTypes.string,
   index: PropTypes.number.isRequired,
