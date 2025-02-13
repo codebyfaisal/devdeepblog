@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { PaperPlaneIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+import { Send } from "lucide-react";
 import { ContactHelmet } from "../components/helmet";
 
 const ContactPage = () => {
@@ -68,10 +68,8 @@ const ContactPage = () => {
           >
             {" "}
             Send
-            <PaperPlaneIcon
-              className={`-rotate-20 transition duration-150`}
-              width={18}
-              height={18}
+            <Send
+              className={`rotate-30 transition duration-150 scale-90`}
             />
           </button>
         </form>

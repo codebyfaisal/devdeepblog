@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRight } from "lucide-react";
 
 const BlogCard = ({ blog, styles = "", index }) => {
   return (
@@ -57,12 +57,12 @@ const BlogCard = ({ blog, styles = "", index }) => {
             to={`/blogs/${blog.slug}`}
             className="flex justify-end group mt-8"
           >
-            <span className="inline-flex gap-2 py-1 px-3 ring ring-black relative text-white group-hover:ring group-hover:text-black">
+            <span className="inline-flex justify-center items-center gap-2 py-1 px-3 ring ring-black relative text-white group-hover:ring group-hover:text-black">
               <span className="w-full h-full bg-black absolute top-0 left-0 z-[-10] transition-all duration-200 group-hover:bg-transparent"></span>
-              <span className="z-10 transition-all duration-200">
+              <span className="z-10 transition-all duration-200 inline-block">
                 Read more
               </span>
-              <ArrowRightIcon className="w-4 h-4 mt-1.5 z-10 transition-all duration-200" />
+              <ArrowRight className="w-4 h-4 z-10 transition-all duration-200 inline-block" />
             </span>
           </Link>
         </div>

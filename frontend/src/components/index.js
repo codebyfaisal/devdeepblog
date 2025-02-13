@@ -2,7 +2,6 @@ import Header from "./Header";
 import Logo from "./Logo";
 import Searchbar from "./Searchbar";
 import FeatureBlog from "./FeatureBlog";
-import ThemeToggler from "./ThemeToggler";
 import LatestBlogs from "./LatestBlogs";
 import BlogCard from "./BlogCard";
 import Subscribe from "./Subscribe";
@@ -14,7 +13,6 @@ export {
   Logo,
   Searchbar,
   FeatureBlog,
-  ThemeToggler,
   LatestBlogs,
   BlogCard,
   Subscribe,

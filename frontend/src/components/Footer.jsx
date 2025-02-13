@@ -1,14 +1,10 @@
 import React from "react";
-import {
-  GitHubLogoIcon,
-  InstagramLogoIcon,
-  LinkedInLogoIcon,
-} from "@radix-ui/react-icons";
+import { Github, Instagram, Linkedin } from "lucide-react";
 import { Subscribe } from "./";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-gray-200 pt-8 space-y-8 text-gray-700">
+    <footer className="border-t border-gray-200 pt-8 space-y-8 text-gray-700 text-center">
       {/* Email Subscription */}
       <Subscribe />
 
@@ -22,7 +18,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="hover:text-gray-900 transition duration-200"
           >
-            <LinkedInLogoIcon className="w-6 h-6 hover:scale-110" />
+            <Linkedin className="w-6 h-6 hover:scale-110" />
           </a>
           <a
             href="http://www.github.com/codebyfaisal"
@@ -30,7 +26,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="hover:text-gray-900 transition duration-200"
           >
-            <GitHubLogoIcon className="w-6 h-6 hover:scale-110" />
+            <Github className="w-6 h-6 hover:scale-110" />
           </a>
           <a
             href="http://www.instagram.com/codebyfaisal"
@@ -38,13 +34,13 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="hover:text-gray-900 transition duration-200"
           >
-            <InstagramLogoIcon className="w-6 h-6 hover:scale-110" />
+            <Instagram className="w-6 h-6 hover:scale-110" />
           </a>
         </div>
       </div>
 
       {/* Copyright Section */}
-      <div className="flex justify-between items-center text-sm opacity-80 border-t border-gray-200 py-2">
+      <div className="flex flex-col justify-between items-center text-sm opacity-80 border-t border-gray-200 py-2 sm:flex-row">
         <p>&copy; {new Date().getFullYear()} Dev Deep. All rights reserved.</p>
         <p>
           Powered by{" "}

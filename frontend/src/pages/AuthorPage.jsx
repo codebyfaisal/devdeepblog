@@ -1,12 +1,13 @@
 import React from "react";
 import { AuthorHelmet } from "../components/helmet";
+import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
 const profileUrl = import.meta.env.VITE_PROFILE_URL;
 
 const AuthorPage = () => {
   return (
     <section className="flex justify-center items-center my-12">
       <AuthorHelmet />
-      <div className="max-w-4xl bg-white shadow-lg rounded-2xl p-8 grid md:grid-cols-7 gap-8">
+      <div className="max-w-4xl bg-white shadow-lg rounded-2xl p-4 sm:p-8 grid md:grid-cols-7 gap-8">
         {/* Image Section */}
         <div className="md:col-span-3 flex justify-center items-center">
           <img
@@ -35,15 +36,34 @@ const AuthorPage = () => {
           </p>
 
           {/* Social Links */}
-          <div className="flex space-x-6 mt-6">
-            <a href="#" className="hover: py-2 px-4 rounded-full text-lg">
-              Twitter
+          <div className="flex gap-6 mt-6 flex-wrap">
+            <a
+              href="#"
+              className="flex items-center ring rounded-md overflow-hidden group"
+            >
+              <Twitter className="p-1 transition-all duration-200 group-hover:scale-110" />
+              <span className="bg-black text-white px-2">Twitter</span>
             </a>
-            <a href="#" className="hover: py-2 px-4 rounded-full text-lg">
-              Instagram
+            <a
+              href="#"
+              className="flex items-center ring rounded-md overflow-hidden group"
+            >
+              <Github className="p-1 transition-all duration-200 group-hover:scale-110" />
+              <span className="bg-black text-white px-2">Github</span>
             </a>
-            <a href="#" className="hover: py-2 px-4 rounded-full text-lg">
-              LinkedIn
+            <a
+              href="#"
+              className="flex items-center ring rounded-md overflow-hidden group"
+            >
+              <Linkedin className="p-1 transition-all duration-200 group-hover:scale-110" />
+              <span className="bg-black text-white px-2">Linkedin</span>
+            </a>
+            <a
+              href="#"
+              className="flex items-center ring rounded-md overflow-hidden group"
+            >
+              <Instagram className="p-1 transition-all duration-200 group-hover:scale-110" />
+              <span className="bg-black text-white px-2">Instagram</span>
             </a>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link, useParams } from "react-router-dom"; // Fixed incorrect import
-import { ChevronRightIcon } from "@radix-ui/react-icons";
+import { Link, useParams } from "react-router";
+import { ChevronRight } from "lucide-react";
 import { BlogsContext } from "../context/Blogs.jsx";
 
 const formatSlug = (slug) =>
@@ -15,20 +15,13 @@ const Pagination = ({ slug }) => (
     <Link to="/" className="hover:underline">
       Home
     </Link>
-    <ChevronSeparator />
+    <ChevronRight />
     <Link to="/blogs" className="hover:underline">
       Blogs
     </Link>
-    <ChevronSeparator />
+    <ChevronRight />
     <span className="text-gray-700 cursor-default">{formatSlug(slug)}</span>
   </div>
-);
-
-const ChevronSeparator = () => (
-  <span className="relative w-4 h-4 mx-2">
-    <ChevronRightIcon className="mt-0.5 scale-110 absolute top-0 -left-0.5" />
-    <ChevronRightIcon className="mt-0.5 scale-110 absolute top-0 left-0" />
-  </span>
 );
 
 const BlogPage = () => {

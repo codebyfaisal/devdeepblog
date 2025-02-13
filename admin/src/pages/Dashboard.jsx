@@ -5,11 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/Card.jsx";
-import { ListBulletIcon } from "@radix-ui/react-icons";
 import { StoreContext } from "../context/Store.jsx";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Eye, User2 } from "lucide-react";
+import { Eye, User2, List } from "lucide-react";
 
 const Dashboard = () => {
   const { blogs, isLoading, getSubscribers } = useContext(StoreContext);
@@ -27,7 +26,7 @@ const Dashboard = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Total Blogs</CardTitle>
-            <ListBulletIcon className="h-6 w-6 text-gray-500" />
+            <List className="h-6 w-6 text-gray-500" />
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">

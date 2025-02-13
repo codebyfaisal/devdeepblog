@@ -50,7 +50,7 @@ function App() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className={`min-h-screen w-full relative font-cabin ${
+      className={`min-h-screen w-full font-cabin relative ${
         isLoading ? "overflow-hidden" : ""
       }`}
     >
@@ -63,14 +63,13 @@ function App() {
         </div>
       )}
 
-      <div className="max-w-5xl mx-auto px-4 lg:px-0 space-y-4">
+      <div className="max-w-5xl mx-auto px-2 md:px-4 lg:px-0 space-y-4 relative mt-24">
         {!isUnsubscribePage && (
           <>
             <Header />
             <Searchbar />
           </>
         )}
-
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />

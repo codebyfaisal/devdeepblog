@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { PaperPlaneIcon } from "@radix-ui/react-icons";
+import { Send } from "lucide-react";
 
 const Subscribe = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -43,7 +43,7 @@ const Subscribe = () => {
       <form
         onSubmit={handleSubmit}
         id="subscribe"
-        className={`flex items-center ring ring-gray-300 group transition duration-150 min-w-60 w-96 max-w-96 rounded-sm overflow-hidden relative ${
+        className={`flex items-center ring ring-gray-300 group transition duration-150 sm:min-w-60 sm:w-96 max-w-96 rounded-sm overflow-hidden relative ${
           isFocus ? "ring-gray-700" : ""
         }`}
       >
@@ -75,12 +75,10 @@ const Subscribe = () => {
           }`}
         >
           {isResponse ? (
-            <PaperPlaneIcon
-              className={`-rotate-20 transition duration-150 ${
+            <Send
+              className={`rotate-30 transition duration-150 scale-90 ${
                 isFocus ? "text-white" : "group-hover:text-white"
               }`}
-              width={20}
-              height={20}
             />
           ) : (
             <img

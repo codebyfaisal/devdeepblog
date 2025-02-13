@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Logo } from ".";
 import { bmcLogo, bmcIcon } from "../assets";
-import { GitHubLogoIcon, PauseIcon, Cross1Icon } from "@radix-ui/react-icons";
+import { Github, ListMinus, X } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 
 const linkLi = (link = "") => (
@@ -25,8 +25,8 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 border-b bg-white/98 border-gray-100 z-[400]">
-      <div className="flex justify-between items-center">
+    <header className="fixed top-0 left-0 z-[400] w-full bg-white">
+      <div className="flex justify-between items-center max-w-5xl mx-auto px-2 md:px-4 lg:px-0 h-20">
         <Link to={"/"}>
           <Logo />
         </Link>
@@ -60,8 +60,9 @@ const Navbar = () => {
             href="https://github.com/codebyfaisal"
             target="_blank"
             rel="noopener noreferrer"
+            className="bg-black/80 text-white p-2 rounded-full scale-80"
           >
-            <GitHubLogoIcon width={25} height={25} />
+            <Github />
           </a>
           <a
             href="https://buymeacoffee.com/codebyfaisal"
@@ -84,15 +85,11 @@ const Navbar = () => {
 
           <button
             type="button"
-            className="md:hidden cursor-pointer rotate-90 flex flex-col items-center"
+            className="md:hidden cursor-pointer rotate-180 flex flex-col items-center"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
           >
-            {menuOpen ? (
-              <Cross1Icon width={25} height={25} className="scale-80 " />
-            ) : (
-              <PauseIcon width={25} height={25} />
-            )}
+            {menuOpen ? <X /> : <ListMinus />}
           </button>
         </div>
       </div>
