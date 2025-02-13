@@ -14,6 +14,7 @@ const Main = () => {
           <Route path="update/:slug" element={<Update />} />
         </Route>
         <Route path="subscribers" element={<Subscribers />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </>
   );

@@ -32,12 +32,10 @@ function App() {
     if (location.hash === "#subscribe") {
       const subscribeSection = document.getElementById("subscribe");
       if (subscribeSection) {
+        window.history.replaceState(null, "", location.pathname);
         setTimeout(() => {
           subscribeSection.scrollIntoView({ behavior: "smooth" });
-          setTimeout(() => {
-            window.history.replaceState(null, "", location.pathname);
-          }, 500);
-        }, 100);
+        }, 500);
       }
     } else {
       // Scroll to the top of the page on route change

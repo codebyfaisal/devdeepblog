@@ -1,15 +1,19 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import TextEditor from "../components/texteditor/TextEditor";
 import { Loader } from "../components";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+import { StoreContext } from "../context/Store.jsx";
 
 const Create = () => {
+  const { fetchBlogs,authenticate } = useContext(StoreContext);
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
   const [images, setImages] = useState([]);
   const [isResponse, setIsResponse] = useState(true);
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -46,8 +50,7 @@ const Create = () => {
         import.meta.env.VITE_API_URL + "/api/blogs",
         {
           headers: {
-            "x-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNPREVCWUZBSVNBTEBHTUFJTC5DT00iLCJwYXNzd29yZCI6IlBFUlNPTkFMX0JMT0cyQ09ERSIsImlhdCI6MTczODc2MTk0OX0.LU9yFjtTw1RlqS-l57XUXJmDUpfaA-XrYqdcD9Yt3Zg",
+            "x-token": authenticate,
           },
           method: "POST",
           body: formData,
@@ -55,17 +58,15 @@ const Create = () => {
       );
 
       const result = await response.json();
-      if (response.status === 200) {
-        console.log(result.msg);
-        toast.success("Blog Successfully Created");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      } else if (response.status === 400) {
-        console.error(result.error);
-        toast.error(result.error);
+
+      if (result.message) {
+        fetchBlogs();
+        navigate("/blogs");
+        toast.success(result.message);
       }
+      if (result.error) toast.error(result.error);
     } catch (error) {
+      toast.error("error");
       console.error("Error submitting form:", error);
     } finally {
       setIsResponse(true);

@@ -1,22 +1,24 @@
 import sendEmail from "../services/nodemailer.service.js";
 import welcomeEmailTemplate from "../templates/welcomeEmail.template.js";
-import fs from "fs";
-import path from "path";
-
-const subscribersDir = path.join(process.cwd(), "subscribers");
+import jwt from "jsonwebtoken";
+import getConfirmationCode from "../utils/confirmationCode.util.js";
+import unsubscribeEmailTemplate from "../templates/unsubscribeEmail.template.js";
+import {
+  deleteEmail,
+  getEmailList,
+  isEmailExist,
+  storeEmail,
+} from "../utils/subscriber.util.js";
+const frontendWebsiteUrl = process.env.FRONTEND_WEBSITE_URL;
 
 const user_email = process.env.GOOGLE_USER_EMAIL;
+const admin_secret = process.env.ADMIN_SECRET;
 
+//  getAll Subscribers -> admin only
 const getSubscribers = async (req, res) => {
   try {
-    // read emails file
-    const data = await fs.promises.readFile(
-      subscribersDir + "/subscriber.txt",
-      "utf8"
-    );
-
-    // split into array -> get only emails -> delete the email
-    const emailList = data.split("\n").slice(0, -1);
+    // get emailList
+    const emailList = await getEmailList();
 
     return res.status(200).json({ subscribers: emailList });
   } catch (error) {
@@ -25,33 +27,38 @@ const getSubscribers = async (req, res) => {
     });
   }
 };
+// delelte subscriber
+const deleteSubscriber = async (req, res) => {
+  try {
+    const { email } = req.body;
+    console.log(req.body);
 
+    // delete email
+    await deleteEmail(email);
+
+    return res.status(200).json({ message: "Subscriber remove Successfully" });
+  } catch (error) {
+    return res.status(500).json({
+      error: "Internal Server Error: Could not process unsubscription.",
+    });
+  }
+};
+
+// subscription --> Client side
 const subscribe = async (req, res) => {
   try {
-    const email = req.body.email;
+    const email = req.body.email.trim();
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
 
-    // read emails file
-    const data = await fs.promises.readFile(
-      subscribersDir + "/subscriber.txt",
-      "utf8"
-    );
+    if (await isEmailExist(email))
+      return res.status(409).json({ error: "You already Subscribe" });
 
-    // split into array -> get only emails -> delete the email
-    const emailExist = data
-      .split("\n")
-      .slice(0, -1)
-      .find((e) => e === email);
+    // write email in file
+    storeEmail(email);
 
-    if (emailExist)
-      return res.status(400).json({ error: "You already Subscribe" });
-
-    fs.appendFile(subscribersDir + "/subscriber.txt", email + "\n", (err) => {
-      if (err) throw err;
-    });
-
+    // send subscription email
     const mailOptions = {
       from: `DevDeepBlog ${user_email}`,
       to: email,
@@ -60,48 +67,116 @@ const subscribe = async (req, res) => {
     };
     await sendEmail(mailOptions);
 
-    return res.status(200).json({
+    return res.status(201).json({
       message: "🎉 Subscribed successfully! Check your email for updates.",
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       error: "Internal Server Error: Could not process subscription.",
     });
   }
 };
 
+// request for unsubscribe
 const unsubscribe = async (req, res) => {
   try {
-    const email = req.body.email;
-    console.log(email);
+    const email = req.body.email.trim();
     if (!email) {
       return res.status(400).json({ error: "Email is required" });
     }
 
-    // read emails file
-    const data = await fs.promises.readFile(
-      subscribersDir + "/subscriber.txt",
-      "utf8"
+    // check email exist
+    const emailExist = await isEmailExist(email);
+
+    if (!emailExist) return res.status(404).json({ error: "Invalid email" });
+
+    // generate code for 1-hour
+    const code = jwt.sign(
+      {
+        email,
+        code: getConfirmationCode(),
+      },
+      admin_secret,
+      { expiresIn: "1h" }
     );
 
-    // split into array -> get only emails -> delete the email
-    const emailList = data
-      .split("\n")
-      .slice(0, -1)
-      .filter((e) => e !== email);
+    const mailOptions = {
+      from: `DevDeepBlog <${user_email}>`,
+      to: email,
+      subject: `Unsubscribe Confirmation - DevDeepBlog`,
+      html: unsubscribeEmailTemplate(email, code),
+      headers: {
+        "List-Unsubscribe": `<mailto:${user_email}?subject=unsubscribe>`,
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      },
+    };
+    await sendEmail(mailOptions);
 
-    // rewrite the remaining emails
-    await fs.promises.writeFile(
-      subscribersDir + "/subscriber.txt",
-      emailList.join("\n") + "\n"
-    );
-
-    return res.status(200).json({ message: "unSubscribed successfully!" });
+    return res
+      .status(200)
+      .json({ message: "Confirmation email to send to you email" });
   } catch (error) {
     return res.status(500).json({
-      error: "Internal Server Error: Could not process subscription.",
+      error: "Internal Server Error: Could not process unsubscription.",
     });
   }
 };
 
-export { subscribe, unsubscribe, getSubscribers };
+// email confirmation Unsubscribe
+const confirmUnsubscribe = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const { email, iat } = jwt.verify(code, admin_secret);
+    console.log(iat);
+
+    // check if email exists
+    const emailExist = await isEmailExist(email);
+
+    if (!emailExist) {
+      return res.status(404).render("unsubscribe", {
+        message: false,
+        error: "Link is expired or invalid. Please request a new link.",
+        frontendWebsiteUrl,
+      });
+    }
+
+    // delete email
+    await deleteEmail(email);
+
+    return res.render("unsubscribe", {
+      message: "You've Been Successfully Unsubscribed",
+      error: false,
+      frontendWebsiteUrl,
+    });
+  } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).render("unsubscribe", {
+        message: false,
+        error: "Link has expired. Please request a new link.",
+        frontendWebsiteUrl,
+      });
+    } else if (error.name === "JsonWebTokenError") {
+      return res.status(401).render("unsubscribe", {
+        message: false,
+        error: "Invalid Link. Please provide a valid link.",
+        frontendWebsiteUrl,
+      });
+    } else {
+      console.error("Unexpected error during token verification:", error);
+      return res.status(500).render("unsubscribe", {
+        message: false,
+        error: "Internal Server Error: Could not process unsubscription.",
+        frontendWebsiteUrl,
+      });
+    }
+  }
+};
+
+export {
+  getSubscribers,
+  deleteSubscriber,
+  subscribe,
+  unsubscribe,
+  confirmUnsubscribe,
+};

@@ -2,16 +2,18 @@ import jwt from "jsonwebtoken";
 
 const adminLogin = (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
+
+    console.log(email, password);
 
     if (
-      username !== process.env.ADMIN_EMAIL ||
-      password !== process.env.ADMIN_PASS
+      email.trim() !== process.env.ADMIN_EMAIL ||
+      password.trim() !== process.env.ADMIN_PASS
     ) {
       return res.status(400).json({ error: "Not authorized" });
     }
 
-    const token = jwt.sign({ username, password }, process.env.ADMIN_SECRET);
+    const token = jwt.sign({ email, password }, process.env.ADMIN_SECRET);
 
     return res.status(200).json({ message: "Login Successfully", token });
   } catch (error) {

@@ -4,9 +4,11 @@ import Skeleton from "react-loading-skeleton";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { Loader } from "../components";
 import { Link } from "react-router";
+import { toast } from "react-toastify";
 
 const Blogs = () => {
-  const { blogs, isLoading } = useContext(StoreContext);
+  const { blogs, isLoading, fetchBlogs, authenticate } =
+    useContext(StoreContext);
   const [sortedByTitle, setSortedByTitle] = useState(0);
   const [sortedByDate, setSortedByDate] = useState(0);
   const [isResponse, setIsResponse] = useState(true);
@@ -31,20 +33,19 @@ const Blogs = () => {
         `${import.meta.env.VITE_API_URL}/api/blogs/${slug}`,
         {
           headers: {
-            "x-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNPREVCWUZBSVNBTEBHTUFJTC5DT00iLCJwYXNzd29yZCI6IlBFUlNPTkFMX0JMT0cyQ09ERSIsImlhdCI6MTczODc2MTk0OX0.LU9yFjtTw1RlqS-l57XUXJmDUpfaA-XrYqdcD9Yt3Zg",
+            "x-token": authenticate,
           },
           method: "DELETE",
         }
       );
 
       const result = await response.json();
-      if (response.status === 200) {
-        window.location.reload();
-        console.log("Success", result.msg);
-      } else {
-        console.error("Fail to Delete", result.err);
+
+      if (result.message) {
+        fetchBlogs();
+        toast.success(result.message);
       }
+      if (result.error) toast.error(result.error);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -113,7 +114,7 @@ const Blogs = () => {
                   </button>
                 </div>
               </th>
-              <th className="py-2 px-4 text-left">Actions</th>
+              <th className="py-2 px-4 text-left"></th>
             </tr>
           </thead>
           <tbody>
@@ -140,7 +141,7 @@ const Blogs = () => {
                     <td className="py-2 px-4">
                       {new Date(blog.publishedDate).toLocaleDateString()}
                     </td>
-                    <td className="py-2 px-4">
+                    <td className="py-2 px-4 text-right">
                       <Link
                         to={`/blogs/update/${blog.slug}`}
                         className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm mr-2"

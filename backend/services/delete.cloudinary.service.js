@@ -5,12 +5,14 @@ const deleteCloudinary = async (req, res, next) => {
   try {
     // empty array
     let publicIds = [];
-    
+
     // if request is POST
     if (req.method === "delete" || req.method === "DELETE") {
       const { slug } = req.params;
       const isBlogExist = await BLOG.findOne({ slug });
       publicIds = isBlogExist.images.map((img) => img.public_id);
+
+      if (publicIds.length === 0 || !publicIds) next();
     }
 
     // if request if PUT

@@ -48,7 +48,7 @@ const cloudinaryUpload = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Errorrr" });
   }
 };
 

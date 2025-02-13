@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
     const admin = jwt.verify(token, process.env.ADMIN_SECRET);
     
     if (
-      admin.username !== process.env.ADMIN_EMAIL ||
+      admin.email !== process.env.ADMIN_EMAIL ||
       admin.password !== process.env.ADMIN_PASS
     ) {
       return res.status(403).json({ error: "Not authorized. Login again." });

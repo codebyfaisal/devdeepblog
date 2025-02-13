@@ -3,7 +3,8 @@ import sendEmail from "../services/nodemailer.service.js";
 import blogEmailTemplate from "../templates/blogEmail.template.js";
 import fs from "fs";
 import path from "path";
-const frontendWebsiteUrl = process.env.FRONTEND_WEBSITE_URL
+import { getEmailList } from "../utils/subscriber.util.js";
+const frontendWebsiteUrl = process.env.FRONTEND_WEBSITE_URL;
 
 const subscribersDir = path.join(process.cwd(), "subscribers");
 const user_email = process.env.GOOGLE_USER_EMAIL;
@@ -53,14 +54,8 @@ const createBlog = async (req, res) => {
 
     await blog.save();
 
-    // read emails file
-    const data = await fs.promises.readFile(
-      subscribersDir + "/subscriber.txt",
-      "utf8"
-    );
-
-    // split into array -> get only emails -> delete the email
-    const emailList = data.split("\n").slice(0, -1).join(",");
+    // get emails list
+    const emailList = await getEmailList();
 
     const mailOptions = {
       from: `DevDeepBlog ${user_email}`,
@@ -91,6 +86,7 @@ const createBlog = async (req, res) => {
       );
       return res.status(400).json({ error: errorMessages });
     }
+
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };

@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const Update = () => {
   const { slug } = useParams();
-  const { getBlog } = useContext(StoreContext);
+  const { getBlog, fetchBlogs, authenticate } = useContext(StoreContext);
   const [blog, setBlog] = useState(null);
   const [title, setTitle] = useState("");
   const [slugId, setSlugId] = useState("");
@@ -19,22 +19,21 @@ const Update = () => {
   const [images, setImages] = useState([]);
   const [isResponse, setIsResponse] = useState(true);
 
-  useEffect(() => {
-    const fetchBlog = async () => {
-      const fetchedBlog = await getBlog(slug);
-      if (fetchedBlog) {
-        setBlog(fetchedBlog);
-        setTitle(fetchedBlog.title || "");
-        setSlugId(fetchedBlog.slug || "");
-        setDescription(fetchedBlog.description || "");
-        setTags(fetchedBlog.tags?.join(",") || "");
-        setPrevImages(fetchedBlog.images || []);
-      }
-    };
+  const fetchBlog = async () => {
+    const fetchedBlog = await getBlog(slug);
+    if (fetchedBlog) {
+      setBlog(fetchedBlog);
+      setTitle(fetchedBlog.title || "");
+      setSlugId(fetchedBlog.slug || "");
+      setDescription(fetchedBlog.description || "");
+      setTags(fetchedBlog.tags?.join(",") || "");
+      setPrevImages(fetchedBlog.images || []);
+    }
+  };
 
+  useEffect(() => {
     fetchBlog();
-    console.log(getBlog("netflix-engineering-blog"));
-  }, [slug, getBlog]);
+  }, [getBlog]);
 
   const handlePrevImages = (public_id) => {
     setPrevImages(prevImages.filter((img) => img.public_id !== public_id));
@@ -72,31 +71,26 @@ const Update = () => {
       formData.append("imagesToDelete", imagesToDelete);
       images.forEach((image) => formData.append("images", image));
 
-      console.log(imagesToDelete);
-
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/blogs`,
         {
           method: "PUT",
           headers: {
-            "x-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNPREVCWUZBSVNBTEBHTUFJTC5DT00iLCJwYXNzd29yZCI6IlBFUlNPTkFMX0JMT0cyQ09ERSIsImlhdCI6MTczODc2MTk0OX0.LU9yFjtTw1RlqS-l57XUXJmDUpfaA-XrYqdcD9Yt3Zg",
+            "x-token": authenticate,
           },
           body: formData,
         }
       );
 
+      console.log(authenticate);
+
       const result = await response.json();
-      if (response.status === 200) {
-        console.log(result.msg);
-        toast.success("Blog Successfully Updated");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      } else if (response.status === 400) {
-        console.error(result.error);
-        toast.error(result.error);
+      if (result.message) {
+        toast.success(result.message);
+        fetchBlogs();
+        fetchBlog();
       }
+      if (result.error) toast.error(result.error);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {

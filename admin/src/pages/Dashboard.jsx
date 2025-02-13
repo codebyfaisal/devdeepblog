@@ -5,14 +5,14 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/Card.jsx";
-import { ListBulletIcon, ChatBubbleIcon } from "@radix-ui/react-icons";
+import { ListBulletIcon } from "@radix-ui/react-icons";
 import { StoreContext } from "../context/Store.jsx";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Eye } from "lucide-react";
+import { Eye, User2 } from "lucide-react";
 
 const Dashboard = () => {
-  const { blogs, isLoading } = useContext(StoreContext);
+  const { blogs, isLoading, getSubscribers } = useContext(StoreContext);
   const sortedBlogs = blogs.sort(
     (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
   );
@@ -44,14 +44,18 @@ const Dashboard = () => {
         {/* Total Comments Card */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Total Comments</CardTitle>
-            <ChatBubbleIcon className="h-6 w-6 text-gray-500" />
+            <CardTitle>Total Subscribers</CardTitle>
+            <User2 className="h-6 w-6 text-gray-500" />
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold">
-              {isLoading ? <Skeleton width={50} baseColor="#ccc" /> : 320}
+              {isLoading ? (
+                <Skeleton width={50} baseColor="#ccc" />
+              ) : (
+                getSubscribers().length
+              )}
             </p>
-            <p className="text-sm text-gray-500">User comments</p>
+            <p className="text-sm text-gray-500">Subscribers</p>
           </CardContent>
         </Card>
 
