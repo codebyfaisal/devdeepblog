@@ -40,7 +40,7 @@ const Subscribers = () => {
         fetchSubscribers();
         toast.success(result.message);
       }
-      if (result.error) toast.error(result.error);
+      else if (result.error) toast.error(result.error);
     } catch (error) {
       console.error("Error deleting subscriber:", error);
       toast.error("❌ An error occurred. Please try again.");

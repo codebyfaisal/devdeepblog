@@ -37,7 +37,7 @@ const Login = () => {
         localStorage.setItem("token", result.token);
         setAuthenticate(result.token);
       }
-      if (result.error) toast.error(result.error);
+      else if (result.error) toast.error(result.error);
 
       console.log(result);
     } catch (error) {

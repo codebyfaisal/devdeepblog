@@ -64,7 +64,7 @@ const Create = () => {
         navigate("/blogs");
         toast.success(result.message);
       }
-      if (result.error) toast.error(result.error);
+      else if (result.error) toast.error(result.error);
     } catch (error) {
       toast.error("error");
       console.error("Error submitting form:", error);

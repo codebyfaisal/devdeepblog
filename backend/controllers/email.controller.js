@@ -9,6 +9,7 @@ import {
   isEmailExist,
   storeEmail,
 } from "../utils/subscriber.util.js";
+import messageEmailTemplate from "../templates/messageEmail.template.js";
 const frontendWebsiteUrl = process.env.FRONTEND_WEBSITE_URL;
 
 const user_email = process.env.GOOGLE_USER_EMAIL;
@@ -31,7 +32,6 @@ const getSubscribers = async (req, res) => {
 const deleteSubscriber = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(req.body);
 
     // delete email
     await deleteEmail(email);
@@ -64,6 +64,12 @@ const subscribe = async (req, res) => {
       to: email,
       subject: `Subscribe to Dev Deep Blog`,
       html: welcomeEmailTemplate({ email }),
+      headers: {
+        "List-Subscribe": `<mailto:${user_email}?subject=Subscribe>`,
+        "List-Subscribe-Post": "List-Subscribe=One-Click",
+        "X-Mailer": "DevDeepBlogMailer",
+        "Content-Type": "text/html; charset=UTF-8",
+      },
     };
     await sendEmail(mailOptions);
 
@@ -109,6 +115,8 @@ const unsubscribe = async (req, res) => {
       headers: {
         "List-Unsubscribe": `<mailto:${user_email}?subject=unsubscribe>`,
         "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        "X-Mailer": "DevDeepBlogMailer",
+        "Content-Type": "text/html; charset=UTF-8",
       },
     };
     await sendEmail(mailOptions);
@@ -173,10 +181,44 @@ const confirmUnsubscribe = async (req, res) => {
   }
 };
 
+// send email to admin
+const sendEmailToAdmin = async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+    // form validation
+    if (!name) return res.status(400).json({ error: "Name required" });
+    else if (!email) return res.status(400).json({ error: "Email required" });
+    else if (!subject)
+      return res.status(400).json({ error: "Subject required" });
+    else if (!message)
+      return res.status(400).json({ error: "Message required" });
+
+    const mailOptions = {
+      from: `DevDeepBlog <no-reply@${frontendWebsiteUrl}>`,
+      to: "codebyfaisal@gmail.com",
+      subject: `New Message from ${name}`,
+      html: messageEmailTemplate({ name, email, subject, message }),
+      headers: {
+        "X-Priority": "3",
+        "X-Mailer": "DevDeepBlogMailer",
+        "Content-Type": "text/html; charset=UTF-8",
+      },
+    };
+    await sendEmail(mailOptions);
+
+    return res.status(200).json({ message: "Email send Successfully" });
+  } catch (error) {
+    return res.status(500).json({
+      error: "Internal Server Error: Could not process subscription.",
+    });
+  }
+};
+
 export {
   getSubscribers,
   deleteSubscriber,
   subscribe,
   unsubscribe,
   confirmUnsubscribe,
+  sendEmailToAdmin,
 };

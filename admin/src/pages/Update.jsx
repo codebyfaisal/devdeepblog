@@ -90,7 +90,7 @@ const Update = () => {
         fetchBlogs();
         fetchBlog();
       }
-      if (result.error) toast.error(result.error);
+      else if (result.error) toast.error(result.error);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {

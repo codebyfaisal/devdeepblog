@@ -4,14 +4,15 @@ import {
   getSubscribers,
   subscribe,
   unsubscribe,
-  deleteSubscriber
+  deleteSubscriber,
+  sendEmailToAdmin,
 } from "../controllers/email.controller.js";
 import auth from "../auth/admin.auth.js";
 
 const emailRouter = express.Router();
 
 // Admin only
-// get all subscribers 
+// get all subscribers
 emailRouter.get("/subscribers", getSubscribers);
 // delete subscription
 emailRouter.delete("/subscriber", auth, deleteSubscriber);
@@ -22,6 +23,6 @@ emailRouter.post("/subscribe", subscribe);
 // handle unsubscription
 emailRouter.post("/unsubscribe", unsubscribe);
 emailRouter.get("/unsubscribe/:code", confirmUnsubscribe);
-
+emailRouter.post("/send", sendEmailToAdmin);
 
 export default emailRouter;

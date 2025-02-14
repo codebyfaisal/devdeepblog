@@ -45,7 +45,7 @@ const Blogs = () => {
         fetchBlogs();
         toast.success(result.message);
       }
-      if (result.error) toast.error(result.error);
+      else if (result.error) toast.error(result.error);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {

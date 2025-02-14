@@ -71,6 +71,8 @@ const createBlog = async (req, res) => {
       }),
       headers: {
         "List-Unsubscribe": `<${frontendWebsiteUrl}/email/unsubscribe>`,
+        "X-Mailer": "DevDeepBlogMailer",
+        "Content-Type": "text/html; charset=UTF-8",
       },
     };
 
