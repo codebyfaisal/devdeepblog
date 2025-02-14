@@ -24,8 +24,7 @@ const Subscribe = () => {
       );
       const result = await response.json();
       if (result.message) toast(result.message);
-      else if (result.error)
-        toast.error(result.error ?? "❌ Subscription failed. Try again.");
+      else if (result.error) toast.error(result.error);
     } catch (error) {
       console.log(error);
       toast.error("❌ An error occurred. Please try again later.");
