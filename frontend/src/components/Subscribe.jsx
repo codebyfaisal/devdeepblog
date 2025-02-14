@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Send } from "lucide-react";
+import { Loader, Send } from "lucide-react";
 
 const Subscribe = () => {
   const [isFocus, setIsFocus] = useState(false);
@@ -75,18 +75,9 @@ const Subscribe = () => {
           }`}
         >
           {isResponse ? (
-            <Send
-              className={`rotate-30 transition duration-150 scale-90 ${
-                isFocus ? "text-white" : "group-hover:text-white"
-              }`}
-            />
+            <Send className={`rotate-30 transition duration-150 scale-90`} />
           ) : (
-            <img
-              src="../public/loading.svg"
-              alt="loading"
-              className="w-6"
-              loading="lazy"
-            />
+            <Loader className="animate-spin transition-transform duration-100" />
           )}
         </button>
       </form>
