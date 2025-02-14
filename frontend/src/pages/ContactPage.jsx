@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Send } from "lucide-react";
+import { Loader, Send } from "lucide-react";
 import { ContactHelmet } from "../components/helmet";
 import { toast } from "react-toastify";
 
 const ContactPage = () => {
-  // Form State
+  const [i, setI] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,6 +23,8 @@ const ContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsResponse(false);
+    console.log(i);
+    setI((prev) => prev + 1);
     try {
       const response = await fetch(
         import.meta.env.VITE_API_URL + "/api/email/send",
@@ -40,8 +42,7 @@ const ContactPage = () => {
       if (result.message) {
         toast.success(result.message);
         setFormData({ name: "", email: "", subject: "", message: "" });
-      }
-      else if (result.error) toast.error(result.error);
+      } else if (result.error) toast.error(result.error);
 
       console.log(result);
     } catch (error) {
@@ -68,7 +69,7 @@ const ContactPage = () => {
 
         {/* Form Section */}
         <form
-          className={`grid sm:grid-cols-2 gap-4 transition duration-150`}
+          className={`grid sm:grid-cols-2 gap-4 transition duration-150 text-black/60 font-nunito`}
           onSubmit={handleSubmit}
         >
           <input
@@ -80,6 +81,7 @@ const ContactPage = () => {
             className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 focus:ring-gray-500 sm:col-span-1"
             onChange={handleChange}
             required={true}
+            disabled={isResponse ? false : true}
           />
           <input
             type="email"
@@ -90,6 +92,7 @@ const ContactPage = () => {
             className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 focus:ring-gray-500 sm:col-span-1"
             onChange={handleChange}
             required={true}
+            disabled={isResponse ? false : true}
           />
           <input
             type="text"
@@ -100,6 +103,7 @@ const ContactPage = () => {
             className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 focus:ring-gray-500 sm:col-span-2"
             onChange={handleChange}
             required={true}
+            disabled={isResponse ? false : true}
           />
           <textarea
             name="message"
@@ -110,14 +114,20 @@ const ContactPage = () => {
             className="rounded-md outline-none border-none ring ring-gray-200 py-2 px-4 focus:ring-gray-500 sm:col-span-2"
             onChange={handleChange}
             required={true}
+            disabled={isResponse ? false : true}
           ></textarea>
           <button
             type="submit"
             className={`py-2 px-4 cursor-pointer rounded-md text-white bg-black/80 transition duration-150 hover:bg-black sm:col-span-2 flex gap-2 justify-center font-medium`}
+            disabled={isResponse ? false : true}
           >
             {" "}
             Send
-            <Send className={`rotate-30 transition duration-150 scale-90`} />
+            {isResponse ? (
+              <Send className={`rotate-30 transition duration-150 scale-90`} />
+            ) : (
+              <Loader className="animate-spin transition-transform duration-100" />
+            )}
           </button>
         </form>
 

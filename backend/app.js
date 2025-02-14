@@ -9,6 +9,9 @@ import emailRouter from "./routes/email.route.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
+const frontendWebsiteUrl = process.env.FRONTEND_WEBSITE_URL;
+const adminWebsiteUrl = process.env.ADMIN_WEBSITE_URL;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -18,14 +21,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
+
 // CORS configuration
-// const corsOptions = {
-//   origin: 'http://your-frontend-domain.com', // Replace with your frontend domain
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// };
-// app.use(cors(corsOptions));
-app.use(cors());
+const corsOptions = {
+  origin: [frontendWebsiteUrl, adminWebsiteUrl],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server running" });

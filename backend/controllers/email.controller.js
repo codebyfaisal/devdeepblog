@@ -196,7 +196,7 @@ const sendEmailToAdmin = async (req, res) => {
     const mailOptions = {
       from: `DevDeepBlog <no-reply@${frontendWebsiteUrl}>`,
       to: "codebyfaisal@gmail.com",
-      subject: `New Message from ${name}`,
+      subject: `${subject}`,
       html: messageEmailTemplate({ name, email, subject, message }),
       headers: {
         "X-Priority": "3",
