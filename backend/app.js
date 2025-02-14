@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 import "dotenv/config";
 import blogRouter from "./routes/blog.route.js";
 import connectMongoDB from "./config/mongodb.config.js";
@@ -15,12 +17,24 @@ const adminWebsiteUrl = process.env.ADMIN_WEBSITE_URL;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-connectMongoDB();
 const app = express();
+
+connectMongoDB();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
+
+app.use(helmet());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  message: "Too many requests from this IP, please try again later.",
+});
+app.use(limiter);
 
 // CORS configuration
 const corsOptions = {
